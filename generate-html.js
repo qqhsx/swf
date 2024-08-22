@@ -12,16 +12,15 @@ function generateHTML() {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWF Viewer</title>
-    <script src="https://unpkg.com/@ruffle-rs/ruffle@latest"></script>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const ruffle = window.RufflePlayer.newest();
-            const player = ruffle.createPlayer();
             document.querySelectorAll('.ruffle-player').forEach(container => {
                 const src = container.getAttribute('data-src');
-                player.load(src).then(() => {
-                    container.appendChild(player);
-                }).catch(error => {
+                const player = ruffle.createPlayer();
+                container.appendChild(player);
+                player.load(src).catch(error => {
                     console.error('Error loading SWF:', error);
                 });
             });
@@ -41,7 +40,7 @@ function generateHTML() {
         const files = fs.readdirSync(path.join(swfDir, category)).filter(file => file.endsWith('.swf'));
 
         files.forEach(file => {
-            const filePath = `${category}/${file}`;
+            const filePath = `swf/${category}/${file}`;
             htmlContent += `
 <a href="${filePath}" target="_blank">${file}</a><br>
 <div class="ruffle-player" data-src="${filePath}" style="width: 800px; height: 600px;"></div><br><br>
