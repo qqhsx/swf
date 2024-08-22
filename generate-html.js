@@ -12,6 +12,7 @@ function generateHTML() {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWF Viewer</title>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
 </head>
 <body>
     <h1>SWF 文件分类浏览</h1>
@@ -29,7 +30,7 @@ function generateHTML() {
             const filePath = `${category}/${file}`;
             htmlContent += `
 <a href="${filePath}" target="_blank">${file}</a><br>
-<object width="800" height="600" data="${filePath}"></object><br><br>
+<div class="ruffle-player" data-src="${filePath}" style="width: 800px; height: 600px;"></div><br><br>
 `;
         });
     });
