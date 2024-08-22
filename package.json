@@ -1,0 +1,15 @@
+{
+  "name": "swf-viewer",
+  "version": "1.0.0",
+  "description": "A simple script to generate index.html for SWF files.",
+  "main": "generate-html.js",
+  "scripts": {
+    "generate": "node generate-html.js"
+  },
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "path": "^0.12.7"
+  },
+  "author": "",
+  "license": "MIT"
+}
