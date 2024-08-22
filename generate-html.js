@@ -13,6 +13,18 @@ function generateHTML() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWF Viewer</title>
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const ruffle = window.RufflePlayer.newest();
+            const player = ruffle.createPlayer();
+            document.querySelectorAll('.ruffle-player').forEach(container => {
+                const src = container.getAttribute('data-src');
+                player.load(src).then(() => {
+                    container.appendChild(player);
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <h1>SWF 文件分类浏览</h1>
