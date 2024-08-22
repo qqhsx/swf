@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'swf/**'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -29,5 +30,4 @@ jobs:
           git config --local user.email "378600950@qq.com"
           git config --local user.name "qqhsx"
           git add index.html
-          git commit -m "Auto-generate index.html"
-          git push
+          git diff --cached --exit-code || (git commit -m "Auto-generate index.html" && git push)
