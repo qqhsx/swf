@@ -6,9 +6,14 @@
     <title>SWF Viewer</title>
 </head>
 <body>
-    <object width="800" height="600">
-        <param name="movie" value="rc.swf">
-        <embed src="rc.swf" width="800" height="600"></embed>
-    </object>
+    <div>
+        <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+        <script>
+            const ruffle = window.RufflePlayer.newest();
+            const player = ruffle.createPlayer();
+            document.body.appendChild(player);
+            player.load("/rc.swf");
+        </script>
+    </div>
 </body>
 </html>
