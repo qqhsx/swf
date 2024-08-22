@@ -4,7 +4,6 @@ on:
   push:
     paths:
       - 'swf/**'
-  workflow_dispatch:
 
 jobs:
   build:
@@ -27,7 +26,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --local user.email "378600950@qq.com"
-          git config --local user.name "qqhsx"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git add index.html
-          git diff --cached --exit-code || (git commit -m "Auto-generate index.html" && git push)
+          git commit -m "Auto-generate index.html"
+          git push
