@@ -12,7 +12,7 @@ function generateHTML() {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWF Viewer</title>
-    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle@latest"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const ruffle = window.RufflePlayer.newest();
@@ -21,6 +21,8 @@ function generateHTML() {
                 const src = container.getAttribute('data-src');
                 player.load(src).then(() => {
                     container.appendChild(player);
+                }).catch(error => {
+                    console.error('Error loading SWF:', error);
                 });
             });
         });
