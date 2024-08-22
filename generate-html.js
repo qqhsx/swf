@@ -53,6 +53,7 @@ function generateCategoryPage(category, files) {
     console.log(`${category}.html has been generated!`);
 }
 
+
 // 生成首页
 function generateIndexPage(categories) {
     let htmlContent = `
@@ -82,6 +83,7 @@ function generateIndexPage(categories) {
     fs.writeFileSync(outputFilePath, htmlContent, 'utf8');
     console.log('index.html has been generated!');
 }
+
 
 // 主函数
 function generateHTML() {
