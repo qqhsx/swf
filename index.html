@@ -1,20 +1,18 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWF Viewer</title>
-    <script src="https://unpkg.com/@ruffle-rs/ruffle@latest"></script>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const ruffle = window.RufflePlayer.newest();
-            const player = ruffle.createPlayer();
             document.querySelectorAll('.ruffle-player').forEach(container => {
                 const src = container.getAttribute('data-src');
-                player.load(src).then(() => {
-                    container.appendChild(player);
-                }).catch(error => {
+                const player = ruffle.createPlayer();
+                container.appendChild(player);
+                player.load(src).catch(error => {
                     console.error('Error loading SWF:', error);
                 });
             });
@@ -24,27 +22,20 @@
 <body>
     <h1>SWF 文件分类浏览</h1>
     <div id="swf-container">
-<h2>塑料注射模具机构设计动画演示200例</h2>
+        <!-- 示例 SWF 文件 -->
+        <h2>塑料注射模具机构设计动画演示200例</h2>
+        <a href="塑料注射模具机构设计动画演示200例/Spardose.swf" target="_blank">Spardose.swf</a><br>
+        <div class="ruffle-player" data-src="塑料注射模具机构设计动画演示200例/Spardose.swf" style="width: 800px; height: 600px;"></div><br><br>
 
-<a href="塑料注射模具机构设计动画演示200例/Spardose.swf" target="_blank">Spardose.swf</a><br>
-<div class="ruffle-player" data-src="swf/塑料注射模具机构设计动画演示200例/Spardose.swf" style="width: 800px; height: 600px;"></div><br><br>
+        <a href="塑料注射模具机构设计动画演示200例/sbdz.swf" target="_blank">sbdz.swf</a><br>
+        <div class="ruffle-player" data-src="塑料注射模具机构设计动画演示200例/sbdz.swf" style="width: 800px; height: 600px;"></div><br><br>
 
-<a href="塑料注射模具机构设计动画演示200例/sbdz.swf" target="_blank">sbdz.swf</a><br>
-<div class="ruffle-player" data-src="塑料注射模具机构设计动画演示200例/sbdz.swf" style="width: 800px; height: 600px;"></div><br><br>
+        <a href="塑料注射模具机构设计动画演示200例/up.swf" target="_blank">up.swf</a><br>
+        <div class="ruffle-player" data-src="塑料注射模具机构设计动画演示200例/up.swf" style="width: 800px; height: 600px;"></div><br><br>
 
-<a href="塑料注射模具机构设计动画演示200例/up.swf" target="_blank">up.swf</a><br>
-<div class="ruffle-player" data-src="塑料注射模具机构设计动画演示200例/up.swf" style="width: 800px; height: 600px;"></div><br><br>
-<h2>模具结构原理动画精解100多个</h2>
-
-<a href="模具结构原理动画精解100多个/001 二级推出机构.swf" target="_blank">001 二级推出机构.swf</a><br>
-<div class="ruffle-player" data-src="模具结构原理动画精解100多个/001 二级推出机构.swf" style="width: 800px; height: 600px;"></div><br><br>
-
-<a href="模具结构原理动画精解100多个/yali.swf" target="_blank">yali.swf</a><br>
-<div class="ruffle-player" data-src="模具结构原理动画精解100多个/yali.swf" style="width: 800px; height: 600px;"></div><br><br>
-
-<a href="模具结构原理动画精解100多个/摆钩式二级推出机构.swf" target="_blank">摆钩式二级推出机构.swf</a><br>
-<div class="ruffle-player" data-src="模具结构原理动画精解100多个/摆钩式二级推出机构.swf" style="width: 800px; height: 600px;"></div><br><br>
-
+        <h2>模具结构原理动画精解100多个</h2>
+        <a href="模具结构原理动画精解100多个/001 二级推出机构.swf" target="_blank">001 二级推出机构.swf</a><br>
+        <div class="ruffle-player" data-src="模具结构原理动画精解100多个/001 二级推出机构.swf" style="width: 800px; height: 600px;"></div><br><br>
     </div>
 </body>
 </html>
