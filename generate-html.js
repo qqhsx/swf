@@ -5,7 +5,7 @@ const path = require('path');
 const swfDir = path.join(__dirname, 'swf');
 
 // 生成单个页面
-function generateSinglePage(files) {
+function generateSinglePage() {
     let htmlContent = `
 <!DOCTYPE html>
 <html lang="en">
@@ -13,70 +13,65 @@ function generateSinglePage(files) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWF Viewer</title>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     <style>
         body {
             display: flex;
-            margin: 0;
-            font-family: Arial, sans-serif;
         }
-        #sidebar {
-            width: 200px;
-            border-right: 1px solid #ddd;
+        #directory {
+            width: 250px;
+            border-right: 1px solid #ccc;
             padding: 10px;
-            box-sizing: border-box;
-            overflow-y: auto;
         }
-        #main {
+        #player {
             flex-grow: 1;
             padding: 10px;
-            box-sizing: border-box;
         }
-        .file-link {
-            display: block;
-            margin-bottom: 10px;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-        .file-link:hover {
-            color: blue;
+        .ruffle-player {
+            width: 800px;
+            height: 600px;
         }
     </style>
-    <script src="https://unpkg.com/@ruffle-rs/ruffle@latest"></script>
+</head>
+<body>
+    <div id="directory">
+        <h2>目录</h2>
+        <ul>
+`;
+
+    // 读取目录和文件
+    const categories = fs.readdirSync(swfDir).filter(file => fs.statSync(path.join(swfDir, file)).isDirectory());
+    categories.forEach(category => {
+        htmlContent += `<li><strong>${category}</strong><ul>`;
+        const files = fs.readdirSync(path.join(swfDir, category)).filter(file => file.endsWith('.swf'));
+        files.forEach(file => {
+            const filePath = `swf/${category}/${file}`;
+            htmlContent += `<li><a href="#" data-src="${filePath}" onclick="loadSWF('${filePath}'); return false;">${file}</a></li>`;
+        });
+        htmlContent += `</ul></li>`;
+    });
+
+    htmlContent += `
+        </ul>
+    </div>
+    <div id="player">
+        <div id="swf-container">
+            <div class="ruffle-player" id="player-container"></div>
+        </div>
+    </div>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const ruffle = window.RufflePlayer.newest();
             const player = ruffle.createPlayer();
-            document.querySelector('#main').appendChild(player);
+            document.getElementById('player-container').appendChild(player);
 
-            document.querySelectorAll('.file-link').forEach(link => {
-                link.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const src = link.getAttribute('data-src');
-                    player.load(src).catch(error => {
-                        console.error('Error loading SWF:', error);
-                    });
+            window.loadSWF = function(src) {
+                player.load(src).catch(error => {
+                    console.error('Error loading SWF:', error);
                 });
-            });
+            };
         });
     </script>
-</head>
-<body>
-    <div id="sidebar">
-        <h2>SWF Files</h2>
-`;
-
-    files.forEach(file => {
-        const filePath = `swf/${file}`;
-        htmlContent += `
-<a href="#" class="file-link" data-src="${filePath}">${file}</a>
-`;
-    });
-
-    htmlContent += `
-    </div>
-    <div id="main">
-        <p>Select a file from the list to view it here.</p>
-    </div>
 </body>
 </html>
 `;
@@ -86,10 +81,4 @@ function generateSinglePage(files) {
     console.log('index.html has been generated!');
 }
 
-// 主函数
-function generateHTML() {
-    const files = fs.readdirSync(swfDir).filter(file => file.endsWith('.swf'));
-    generateSinglePage(files);
-}
-
-generateHTML();
+generateSinglePage();
