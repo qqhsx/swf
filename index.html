@@ -1,24 +1,64 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test SWF</title>
+    <title>SWF Viewer</title>
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        #sidebar {
+            width: 200px;
+            border-right: 1px solid #ddd;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        #main {
+            flex-grow: 1;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .file-link {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .file-link:hover {
+            color: blue;
+        }
+    </style>
     <script src="https://unpkg.com/@ruffle-rs/ruffle@latest"></script>
-</head>
-<body>
-    <h1>Test SWF Viewer</h1>
-    <div id="swf-container" style="width: 800px; height: 600px;"></div>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const ruffle = window.RufflePlayer.newest();
             const player = ruffle.createPlayer();
-            document.querySelector('#swf-container').appendChild(player);
+            document.querySelector('#main').appendChild(player);
 
-            player.load('rc.swf').catch(error => {
-                console.error('Error loading SWF:', error);
+            document.querySelectorAll('.file-link').forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const src = link.getAttribute('data-src');
+                    player.load(src).catch(error => {
+                        console.error('Error loading SWF:', error);
+                    });
+                });
             });
         });
     </script>
+</head>
+<body>
+    <div id="sidebar">
+        <h2>SWF Files</h2>
+
+    </div>
+    <div id="main">
+        <p>Select a file from the list to view it here.</p>
+    </div>
 </body>
 </html>
