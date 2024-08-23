@@ -18,11 +18,6 @@ function generateSinglePage() {
         body {
             display: flex;
         }
-        #directory h2 {
-            margin: 0; /* 去掉默认外边距 */
-            padding-bottom: 10px; /* 标题与目录列表之间的间距 */
-            text-align: left; /* 确保标题左对齐 */
-        }
         #directory {
             width: 250px;
             border-right: 1px solid #ccc;
