@@ -5,60 +5,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWF Viewer</title>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     <style>
         body {
             display: flex;
-            margin: 0;
-            font-family: Arial, sans-serif;
         }
-        #sidebar {
-            width: 200px;
-            border-right: 1px solid #ddd;
+        #directory {
+            width: 250px;
+            border-right: 1px solid #ccc;
             padding: 10px;
-            box-sizing: border-box;
-            overflow-y: auto;
         }
-        #main {
+        #player {
             flex-grow: 1;
             padding: 10px;
-            box-sizing: border-box;
         }
-        .file-link {
-            display: block;
-            margin-bottom: 10px;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-        .file-link:hover {
-            color: blue;
+        .ruffle-player {
+            width: 800px;
+            height: 600px;
         }
     </style>
-    <script src="https://unpkg.com/@ruffle-rs/ruffle@latest"></script>
+</head>
+<body>
+    <div id="directory">
+        <h2>目录</h2>
+        <ul>
+<li><strong>塑料注射模具机构设计动画演示200例</strong><ul><li><a href="#" data-src="swf/塑料注射模具机构设计动画演示200例/Spardose.swf" onclick="loadSWF('swf/塑料注射模具机构设计动画演示200例/Spardose.swf'); return false;">Spardose.swf</a></li><li><a href="#" data-src="swf/塑料注射模具机构设计动画演示200例/sbdz.swf" onclick="loadSWF('swf/塑料注射模具机构设计动画演示200例/sbdz.swf'); return false;">sbdz.swf</a></li><li><a href="#" data-src="swf/塑料注射模具机构设计动画演示200例/up.swf" onclick="loadSWF('swf/塑料注射模具机构设计动画演示200例/up.swf'); return false;">up.swf</a></li></ul></li><li><strong>模具结构原理动画精解100多个</strong><ul><li><a href="#" data-src="swf/模具结构原理动画精解100多个/001 二级推出机构.swf" onclick="loadSWF('swf/模具结构原理动画精解100多个/001 二级推出机构.swf'); return false;">001 二级推出机构.swf</a></li><li><a href="#" data-src="swf/模具结构原理动画精解100多个/yali.swf" onclick="loadSWF('swf/模具结构原理动画精解100多个/yali.swf'); return false;">yali.swf</a></li><li><a href="#" data-src="swf/模具结构原理动画精解100多个/侧向分型与抽芯 1.swf" onclick="loadSWF('swf/模具结构原理动画精解100多个/侧向分型与抽芯 1.swf'); return false;">侧向分型与抽芯 1.swf</a></li><li><a href="#" data-src="swf/模具结构原理动画精解100多个/侧抽芯.swf" onclick="loadSWF('swf/模具结构原理动画精解100多个/侧抽芯.swf'); return false;">侧抽芯.swf</a></li><li><a href="#" data-src="swf/模具结构原理动画精解100多个/带横向抽芯的分型模具模拟动画.swf" onclick="loadSWF('swf/模具结构原理动画精解100多个/带横向抽芯的分型模具模拟动画.swf'); return false;">带横向抽芯的分型模具模拟动画.swf</a></li><li><a href="#" data-src="swf/模具结构原理动画精解100多个/抽真空成型-阳模.swf" onclick="loadSWF('swf/模具结构原理动画精解100多个/抽真空成型-阳模.swf'); return false;">抽真空成型-阳模.swf</a></li></ul></li>
+        </ul>
+    </div>
+    <div id="player">
+        <div id="swf-container">
+            <div class="ruffle-player" id="player-container"></div>
+        </div>
+    </div>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const ruffle = window.RufflePlayer.newest();
             const player = ruffle.createPlayer();
-            document.querySelector('#main').appendChild(player);
+            document.getElementById('player-container').appendChild(player);
 
-            document.querySelectorAll('.file-link').forEach(link => {
-                link.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const src = link.getAttribute('data-src');
-                    player.load(src).catch(error => {
-                        console.error('Error loading SWF:', error);
-                    });
+            window.loadSWF = function(src) {
+                player.load(src).catch(error => {
+                    console.error('Error loading SWF:', error);
                 });
-            });
+            };
         });
     </script>
-</head>
-<body>
-    <div id="sidebar">
-        <h2>SWF Files</h2>
-
-    </div>
-    <div id="main">
-        <p>Select a file from the list to view it here.</p>
-    </div>
 </body>
 </html>
