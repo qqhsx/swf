@@ -41,7 +41,7 @@ function generateSinglePage(files) {
             color: blue;
         }
     </style>
-    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle@latest"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const ruffle = window.RufflePlayer.newest();
