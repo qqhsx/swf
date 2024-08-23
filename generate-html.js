@@ -22,6 +22,19 @@ function generateSinglePage() {
             width: 250px;
             border-right: 1px solid #ccc;
             padding: 10px;
+            box-sizing: border-box;
+        }
+        #directory h2 {
+            margin: 0;
+            padding-bottom: 10px;
+            text-align: left;
+        }
+        #directory ul {
+            padding-left: 0;
+            list-style-type: none;
+        }
+        #directory li {
+            margin-bottom: 5px;
         }
         #player {
             flex-grow: 1;
