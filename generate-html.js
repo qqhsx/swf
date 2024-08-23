@@ -18,23 +18,15 @@ function generateSinglePage() {
         body {
             display: flex;
         }
+        #directory h2 {
+            margin: 0; /* 去掉默认外边距 */
+            padding-bottom: 10px; /* 标题与目录列表之间的间距 */
+            text-align: left; /* 确保标题左对齐 */
+        }
         #directory {
             width: 250px;
             border-right: 1px solid #ccc;
             padding: 10px;
-            box-sizing: border-box;
-        }
-        #directory h2 {
-            margin: 0;
-            padding-bottom: 10px;
-            text-align: left;
-        }
-        #directory ul {
-            padding-left: 0;
-            list-style-type: none;
-        }
-        #directory li {
-            margin-bottom: 5px;
         }
         #player {
             flex-grow: 1;
