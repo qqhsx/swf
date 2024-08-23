@@ -16,6 +16,7 @@ function generateSinglePage(files) {
     <style>
         body {
             display: flex;
+            margin: 0;
             font-family: Arial, sans-serif;
         }
         #sidebar {
@@ -23,6 +24,7 @@ function generateSinglePage(files) {
             border-right: 1px solid #ddd;
             padding: 10px;
             box-sizing: border-box;
+            overflow-y: auto;
         }
         #main {
             flex-grow: 1;
