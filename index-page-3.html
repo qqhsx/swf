@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWF Viewer - Page 3</title>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+    <style>
+        body {
+            display: flex;
+        }
+        #directory {
+            width: 250px;
+            border-right: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        #player {
+            flex-grow: 1;
+            padding: 10px;
+        }
+        .ruffle-player {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            max-height: 600px;
+        }
+        .pagination {
+            margin-top: 10px;
+        }
+        .pagination button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="directory">
+        <h2>目录</h2>
+        <ul>
+<li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/1.8.1斜销、斜滑块联合抽芯机构之一.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/1.8.1斜销、斜滑块联合抽芯机构之一.swf'); return false;">1.8.1斜销、斜滑块联合抽芯机构之一.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/1.8.2斜销、斜滑块联合抽芯机构之二.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/1.8.2斜销、斜滑块联合抽芯机构之二.swf'); return false;">1.8.2斜销、斜滑块联合抽芯机构之二.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/1.8.3斜销、推杆联合抽芯机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/1.8.3斜销、推杆联合抽芯机构.swf'); return false;">1.8.3斜销、推杆联合抽芯机构.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/1.8.5弯销、液压联合抽芯机构之一.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/1.8.5弯销、液压联合抽芯机构之一.swf'); return false;">1.8.5弯销、液压联合抽芯机构之一.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/1.8.6齿轮齿条、三角形摆块联合抽芯机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/1.8.6齿轮齿条、三角形摆块联合抽芯机构.swf'); return false;">1.8.6齿轮齿条、三角形摆块联合抽芯机构.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/1.8.7弯销、液压联合抽芯机构之二.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/1.8.7弯销、液压联合抽芯机构之二.swf'); return false;">1.8.7弯销、液压联合抽芯机构之二.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/偏心式手动斜槽抽多型芯.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/偏心式手动斜槽抽多型芯.swf'); return false;">偏心式手动斜槽抽多型芯.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/弯销抽芯机构一.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/弯销抽芯机构一.swf'); return false;">弯销抽芯机构一.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/弯销抽芯机构七.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/弯销抽芯机构七.swf'); return false;">弯销抽芯机构七.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/弯销抽芯机构五.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/弯销抽芯机构五.swf'); return false;">弯销抽芯机构五.swf</a></li>
+        </ul>
+        <div class="pagination">
+<button onclick="changePage(1)">1</button><button onclick="changePage(2)">2</button><button onclick="changePage(3)" disabled>3</button><button onclick="changePage(4)">4</button>
+        </div>
+    </div>
+    <div id="player">
+        <div id="swf-container">
+            <div class="ruffle-player" id="player-container"></div>
+        </div>
+    </div>
+    <script>
+        let currentPage = 3;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const ruffle = window.RufflePlayer.newest();
+            const player = ruffle.createPlayer();
+            document.getElementById('player-container').appendChild(player);
+
+            window.loadSWF = function(src) {
+                player.load(src).catch(error => {
+                    console.error('Error loading SWF:', error);
+                });
+            };
+
+            window.changePage = function(page) {
+                window.location.href = 'index.html?page=' + page;
+            };
+        });
+    </script>
+</body>
+</html>

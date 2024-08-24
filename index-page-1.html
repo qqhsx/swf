@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWF Viewer - Page 1</title>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+    <style>
+        body {
+            display: flex;
+        }
+        #directory {
+            width: 250px;
+            border-right: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        #player {
+            flex-grow: 1;
+            padding: 10px;
+        }
+        .ruffle-player {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            max-height: 600px;
+        }
+        .pagination {
+            margin-top: 10px;
+        }
+        .pagination button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="directory">
+        <h2>目录</h2>
+        <ul>
+<li><a href="#" data-src="swf/塑料注射模具机构设计动画演示200例/Spardose.swf" onclick="loadSWF('swf/塑料注射模具机构设计动画演示200例/Spardose.swf'); return false;">Spardose.swf</a></li><li><a href="#" data-src="swf/塑料注射模具机构设计动画演示200例/sbdz.swf" onclick="loadSWF('swf/塑料注射模具机构设计动画演示200例/sbdz.swf'); return false;">sbdz.swf</a></li><li><a href="#" data-src="swf/模具结构原理动画精解100多个/yali.swf" onclick="loadSWF('swf/模具结构原理动画精解100多个/yali.swf'); return false;">yali.swf</a></li><li><a href="#" data-src="swf/模具结构原理动画精解100多个/侧向分型与抽芯 1.swf" onclick="loadSWF('swf/模具结构原理动画精解100多个/侧向分型与抽芯 1.swf'); return false;">侧向分型与抽芯 1.swf</a></li><li><a href="#" data-src="swf/模具结构原理动画精解100多个/侧抽芯.swf" onclick="loadSWF('swf/模具结构原理动画精解100多个/侧抽芯.swf'); return false;">侧抽芯.swf</a></li><li><a href="#" data-src="swf/模具结构原理动画精解100多个/带横向抽芯的分型模具模拟动画.swf" onclick="loadSWF('swf/模具结构原理动画精解100多个/带横向抽芯的分型模具模拟动画.swf'); return false;">带横向抽芯的分型模具模拟动画.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/1.1.5弹簧内侧抽芯机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/1.1.5弹簧内侧抽芯机构.swf'); return false;">1.1.5弹簧内侧抽芯机构.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/1.2.13斜销装在动模侧、带可滑动主型芯的分型机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/1.2.13斜销装在动模侧、带可滑动主型芯的分型机构.swf'); return false;">1.2.13斜销装在动模侧、带可滑动主型芯的分型机构.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/1.2.1典型的斜销抽芯机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/1.2.1典型的斜销抽芯机构.swf'); return false;">1.2.1典型的斜销抽芯机构.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/1.3.1 标准斜顶抽芯机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/1.3.1 标准斜顶抽芯机构.swf'); return false;">1.3.1 标准斜顶抽芯机构.swf</a></li>
+        </ul>
+        <div class="pagination">
+<button onclick="changePage(1)" disabled>1</button><button onclick="changePage(2)">2</button><button onclick="changePage(3)">3</button><button onclick="changePage(4)">4</button>
+        </div>
+    </div>
+    <div id="player">
+        <div id="swf-container">
+            <div class="ruffle-player" id="player-container"></div>
+        </div>
+    </div>
+    <script>
+        let currentPage = 1;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const ruffle = window.RufflePlayer.newest();
+            const player = ruffle.createPlayer();
+            document.getElementById('player-container').appendChild(player);
+
+            window.loadSWF = function(src) {
+                player.load(src).catch(error => {
+                    console.error('Error loading SWF:', error);
+                });
+            };
+
+            window.changePage = function(page) {
+                window.location.href = 'index.html?page=' + page;
+            };
+        });
+    </script>
+</body>
+</html>
