@@ -42,6 +42,16 @@ function generatePage(page, category, files, totalPages) {
         .pagination button {
             margin-right: 5px;
         }
+        .back-to-home {
+            margin-top: 10px;
+        }
+        .back-to-home a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .back-to-home a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -67,6 +77,9 @@ function generatePage(page, category, files, totalPages) {
     }
 
     htmlContent += `
+        </div>
+        <div class="back-to-home">
+            <a href="index.html">返回主页</a>
         </div>
     </div>
     <div id="player">
