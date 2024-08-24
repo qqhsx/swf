@@ -21,6 +21,8 @@ function generatePage(page, category, files, totalPages) {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            height: 100vh;
+            overflow: hidden;
         }
         #directory {
             width: 250px;
@@ -33,9 +35,14 @@ function generatePage(page, category, files, totalPages) {
             flex-grow: 1;
             padding: 10px;
             box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
         .ruffle-player {
             width: 100%;
+            max-width: 100%;
             height: auto;
             max-height: 600px;
         }
@@ -56,12 +63,8 @@ function generatePage(page, category, files, totalPages) {
             text-decoration: underline;
         }
         @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-            }
             #directory {
                 width: 100%;
-                max-width: none;
                 border-right: none;
                 border-bottom: 1px solid #ccc;
                 overflow: hidden;
@@ -70,6 +73,12 @@ function generatePage(page, category, files, totalPages) {
             #player {
                 width: 100%;
                 padding: 5px;
+                overflow: hidden;
+            }
+            .ruffle-player {
+                max-width: 100vw;
+                max-height: 80vh; /* 控制播放器的最大高度，避免溢出 */
+                height: auto;
             }
         }
     </style>
@@ -143,6 +152,8 @@ function generateIndexPage(categories) {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            height: 100vh;
+            overflow: hidden;
         }
         #directory {
             width: 250px;
@@ -155,6 +166,10 @@ function generateIndexPage(categories) {
             flex-grow: 1;
             padding: 10px;
             box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
         #directory ul {
             list-style-type: none;
@@ -173,18 +188,15 @@ function generateIndexPage(categories) {
         @media (max-width: 768px) {
             #directory {
                 width: 100%;
-                max-width: none;
                 border-right: none;
                 border-bottom: 1px solid #ccc;
                 overflow: hidden;
                 padding: 5px;
             }
-            body {
-                flex-direction: column;
-            }
             #player {
                 width: 100%;
                 padding: 5px;
+                overflow: hidden;
             }
         }
     </style>
