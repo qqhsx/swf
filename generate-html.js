@@ -3,10 +3,10 @@ const path = require('path');
 
 // 目录路径
 const swfDir = path.join(__dirname, 'swf');
-const filesPerPage = 10; // 每页显示的文件数
+const filesPerPage = 10; // 每页显示的文件数量
 
-// 生成单页 HTML 页面
-function generateSinglePage(page, files, totalPages) {
+// 生成页面 HTML 内容
+function generatePage(page, files, totalPages) {
     let htmlContent = `
 <!DOCTYPE html>
 <html lang="en">
@@ -88,7 +88,7 @@ function generateSinglePage(page, files, totalPages) {
             };
 
             window.changePage = function(page) {
-                window.location.href = 'index.html?page=' + page;
+                window.location.href = 'index-page-' + page + '.html';
             };
         });
     </script>
@@ -121,7 +121,7 @@ function generateAllPages() {
         const startIndex = (page - 1) * filesPerPage;
         const endIndex = startIndex + filesPerPage;
         const filesForPage = allFiles.slice(startIndex, endIndex);
-        const pageContent = generateSinglePage(page, filesForPage, totalPages);
+        const pageContent = generatePage(page, filesForPage, totalPages);
 
         const outputFilePath = path.join(__dirname, `index-page-${page}.html`);
         fs.writeFileSync(outputFilePath, pageContent, 'utf8');
