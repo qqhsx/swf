@@ -14,8 +14,7 @@
             padding: 0;
         }
         #directory {
-            width: 100%;
-            max-width: 250px;
+            width: 250px;
             border-right: 1px solid #ccc;
             padding: 10px;
             overflow-y: auto;
@@ -42,15 +41,19 @@
         }
         @media (max-width: 768px) {
             #directory {
-                max-width: 100%;
+                width: 100%;
+                max-width: none;
                 border-right: none;
                 border-bottom: 1px solid #ccc;
+                overflow: hidden;
+                padding: 5px;
             }
             body {
                 flex-direction: column;
             }
             #player {
-                padding: 0;
+                width: 100%;
+                padding: 5px;
             }
         }
     </style>
