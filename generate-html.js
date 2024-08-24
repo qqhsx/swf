@@ -17,26 +17,30 @@ function generatePage(page, category, files, totalPages) {
     <style>
         body {
             display: flex;
-            flex-direction: column; /* stack elements vertically on mobile devices */
+            flex-direction: column; /* 垂直堆叠元素，适配移动设备 */
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* 禁用水平滚动 */
         }
         #directory {
-            width: 100%; /* make the directory list full-width on mobile devices */
-            border-right: none; /* remove border on mobile devices */
+            width: 100%; /* 使目录列表在移动设备上全宽 */
             padding: 10px;
             overflow-y: auto;
+            box-sizing: border-box; /* 确保padding和border不会影响宽度 */
         }
         #player {
             flex-grow: 1;
             padding: 10px;
+            box-sizing: border-box;
         }
         .ruffle-player {
-            width: 100%; /* make the player full-width on mobile devices */
+            width: 100%; /* 使播放器在移动设备上全宽 */
             height: auto;
-            max-width: 100%; /* limit the player width to the screen width */
-            max-height: 300px; /* limit the player height to a reasonable value */
+            max-width: 100%; /* 限制播放器宽度为屏幕宽度 */
+            max-height: 300px; /* 限制播放器高度为合理值 */
         }
-        /* add media queries to adjust layout for different screen sizes */
+        /* 添加媒体查询以调整不同屏幕尺寸的布局 */
         @media only screen and (max-width: 768px) {
             #directory {
                 font-size: 14px;
@@ -45,7 +49,7 @@ function generatePage(page, category, files, totalPages) {
                 padding: 5px;
             }
             .ruffle-player {
-                max-height: 200px;
+                max-height: 200px; /* 在平板设备上限制最大高度 */
             }
         }
         @media only screen and (max-width: 480px) {
@@ -56,8 +60,22 @@ function generatePage(page, category, files, totalPages) {
                 padding: 2px;
             }
             .ruffle-player {
-                max-height: 150px;
+                max-height: 150px; /* 在手机设备上限制最大高度 */
             }
+        }
+        .pagination a {
+            margin: 0 5px;
+        }
+        .pagination button {
+            padding: 5px 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .back-to-home a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
         }
     </style>
 </head>
@@ -107,6 +125,13 @@ function generatePage(page, category, files, totalPages) {
                 });
             };
         });
+
+        window.addEventListener("resize", () => {
+            const player = document.getElementById("player-container");
+            player.style.width = "100%";
+            player.style.height = "auto";
+        });
+
         window.addEventListener("orientationchange", () => {
             const player = document.getElementById("player-container");
             player.style.width = "100%";
@@ -132,18 +157,17 @@ function generateIndexPage(categories) {
     <style>
         body {
             display: flex;
-            flex-direction: column; /* stack elements vertically on mobile devices */
+            flex-direction: column; /* 垂直堆叠元素，适配移动设备 */
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* 禁用水平滚动 */
         }
         #directory {
-            width: 100%; /* make the directory list full-width on mobile devices */
-            border-right: none; /* remove border on mobile devices */
+            width: 100%; /* 使目录列表在移动设备上全宽 */
             padding: 10px;
             overflow-y: auto;
-        }
-        #player {
-            flex-grow: 1;
-            padding: 10px;
+            box-sizing: border-box; /* 确保padding和border不会影响宽度 */
         }
         #directory ul {
             list-style-type: none; /* 去掉列表的默认样式 */
@@ -158,6 +182,12 @@ function generateIndexPage(categories) {
         }
         #directory a:hover {
             text-decoration: underline; /* 鼠标悬停时下划线 */
+        }
+        .back-to-home a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
         }
     </style>
 </head>
@@ -175,66 +205,30 @@ function generateIndexPage(categories) {
     htmlContent += `
         </ul>
     </div>
-    <div id="player">
-        <div id="swf-container">
-            <div class="ruffle-player" id="player-container"></div>
-        </div>
+    <div class="back-to-home">
+        <a href="index.html">返回主页</a>
     </div>
-    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const ruffle = window.RufflePlayer.newest();
-            const player = ruffle.createPlayer();
-            document.getElementById('player-container').appendChild(player);
-
-            window.loadSWF = function(src) {
-                player.load(src).catch(error => {
-                    console.error('Error loading SWF:', error);
-                });
-            };
-        });
-        window.addEventListener("orientationchange", () => {
-            const player = document.getElementById("player-container");
-            player.style.width = "100%";
-            player.style.height = "auto";
-        });
-    </script>
 </body>
 </html>
 `;
 
-    const outputFilePath = path.join(__dirname, 'index.html');
-    fs.writeFileSync(outputFilePath, htmlContent, 'utf8');
-    console.log('index.html has been generated!');
+    return htmlContent;
 }
 
-// 生成所有页面
-function generateAllPages() {
-    // 读取目录和文件
-    const categories = fs.readdirSync(swfDir).filter(file => fs.statSync(path.join(swfDir, file)).isDirectory());
+// 示例使用
+const categories = fs.readdirSync(swfDir).filter(file => fs.statSync(path.join(swfDir, file)).isDirectory());
 
-    categories.forEach(category => {
-        const files = fs.readdirSync(path.join(swfDir, category)).filter(file => file.endsWith('.swf'));
+categories.forEach(category => {
+    const categoryPath = path.join(swfDir, category);
+    const files = fs.readdirSync(categoryPath).filter(file => file.endsWith('.swf'));
+    const totalPages = Math.ceil(files.length / filesPerPage);
 
-        // 计算总页数
-        const totalFiles = files.length;
-        const totalPages = Math.ceil(totalFiles / filesPerPage);
+    for (let i = 1; i <= totalPages; i++) {
+        const pageFiles = files.slice((i - 1) * filesPerPage, i * filesPerPage);
+        const pageContent = generatePage(i, category, pageFiles, totalPages);
+        fs.writeFileSync(`index-page-${category}-${i}.html`, pageContent);
+    }
+});
 
-        // 生成每一页
-        for (let page = 1; page <= totalPages; page++) {
-            const startIndex = (page - 1) * filesPerPage;
-            const endIndex = startIndex + filesPerPage;
-            const filesForPage = files.slice(startIndex, endIndex);
-            const pageContent = generatePage(page, category, filesForPage, totalPages);
-
-            const outputFilePath = path.join(__dirname, `index-page-${category}-${page}.html`);
-            fs.writeFileSync(outputFilePath, pageContent, 'utf8');
-            console.log(`index-page-${category}-${page}.html has been generated!`);
-        }
-    });
-
-    // 生成主页面
-    generateIndexPage(categories);
-}
-
-generateAllPages();
+const indexContent = generateIndexPage(categories);
+fs.writeFileSync('index.html', indexContent);
