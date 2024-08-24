@@ -33,16 +33,36 @@
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     <script>
         window.RufflePlayer = window.RufflePlayer || {};
-<script>
-    window.RufflePlayer = window.RufflePlayer || {};
-    window.addEventListener("load", (event) => {
-        const ruffle = window.RufflePlayer.newest();
-        const player = ruffle.createPlayer();
-        const container = document.getElementById("container");
-        container.appendChild(player);
-        player.load("movie.swf");
-    });
-</script>
-<script src="path/to/ruffle/ruffle.js"></script>
+        window.addEventListener("load", () => {
+            const ruffle = window.RufflePlayer.newest();
+            const player = ruffle.createPlayer();
+            const container = document.getElementById("container");
+            container.appendChild(player);
+            
+            // 设置播放器的宽度和高度为100%
+            player.style.width = "100%"; 
+            player.style.height = "100%";
+            player.style.maxWidth = "100vw";  
+            player.style.maxHeight = "100vh";
+
+            player.load("path/to/your/movie.swf"); // 替换为实际的 SWF 文件路径
+        });
+
+        window.addEventListener("resize", () => {
+            const player = document.getElementById("container").firstChild;
+            player.style.width = "100%";
+            player.style.height = "100%";
+            player.style.maxWidth = "100vw";  
+            player.style.maxHeight = "100vh";
+        });
+
+        window.addEventListener("orientationchange", () => {
+            const player = document.getElementById("container").firstChild;
+            player.style.width = "100%";
+            player.style.height = "100%";
+            player.style.maxWidth = "100vw";  
+            player.style.maxHeight = "100vh";
+        });
+    </script>
 </body>
 </html>
