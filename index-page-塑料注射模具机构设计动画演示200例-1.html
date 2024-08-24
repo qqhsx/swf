@@ -6,14 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SWF Viewer - 塑料注射模具机构设计动画演示200例 - Page 1</title>
     <style>
-        body {
-            display: flex;
-            flex-direction: column; /* 垂直堆叠元素，适配移动设备 */
-            font-family: Arial, sans-serif;
+        html, body {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             overflow-x: hidden; /* 禁止水平滚动 */
+            width: 100%;
+            max-width: 100%; /* 限制页面最大宽度 */
+        }
+        body {
+            display: flex;
+            flex-direction: column; /* 垂直堆叠元素，适配移动设备 */
+            font-family: Arial, sans-serif;
         }
         #directory {
             width: 100%; /* 使目录列表在移动设备上全宽 */
@@ -26,6 +30,7 @@
             padding: 10px;
             width: 100%; /* 确保播放器容器宽度不超过屏幕 */
             box-sizing: border-box;
+            max-width: 100%; /* 强制限制播放器容器宽度 */
         }
         .ruffle-player {
             width: 100%; /* 使播放器在移动设备上全宽 */
