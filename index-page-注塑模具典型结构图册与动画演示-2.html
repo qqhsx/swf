@@ -9,85 +9,29 @@
     <style>
         body {
             display: flex;
-            flex-direction: row;
-            margin: 0;
             font-family: Arial, sans-serif;
-            min-height: 100vh;
-            box-sizing: border-box;
-            overflow-x: hidden; /* 避免整体页面水平滚动 */
         }
         #directory {
-            width: 300px; /* 固定宽度适合桌面 */
+            width: 250px;
             border-right: 1px solid #ccc;
             padding: 10px;
-            box-sizing: border-box;
-            background-color: #f9f9f9;
             overflow-y: auto;
         }
         #player {
             flex-grow: 1;
             padding: 10px;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden; /* 避免播放器溢出 */
         }
         .ruffle-player {
             width: 100%;
-            max-width: 100%;
+            max-width: 800px;
             height: auto;
-            max-height: 80vh; /* 高度自适应视口 */
+            max-height: 600px;
         }
         .pagination {
             margin-top: 10px;
         }
         .pagination button {
-            margin: 2px;
-            padding: 5px 10px;
-            font-size: 14px;
-        }
-        .back-to-home {
-            margin-top: 10px;
-        }
-        .back-to-home a {
-            text-decoration: none;
-            color: #007bff;
-        }
-        .back-to-home a:hover {
-            text-decoration: underline;
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-            }
-            #directory {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid #ccc;
-                overflow-y: auto; /* 保证在移动端可以垂直滚动 */
-                overflow-x: hidden;
-            }
-            #player {
-                width: 100%;
-                padding: 5px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                box-sizing: border-box;
-            }
-            .ruffle-player {
-                width: 100%;
-                max-width: 100%;
-                height: auto;
-                max-height: 80vh; /* 确保播放器高度在视口内 */
-            }
-            .pagination button {
-                padding: 3px 6px;
-                font-size: 12px;
-            }
+            margin-right: 5px;
         }
     </style>
 </head>
@@ -95,13 +39,10 @@
     <div id="directory">
         <h2>注塑模具典型结构图册与动画演示</h2>
         <ul>
-<li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜槽侧向分型抽芯机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜槽侧向分型抽芯机构.swf'); return false;">斜槽侧向分型抽芯机构.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销侧向分型抽芯机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销侧向分型抽芯机构.swf'); return false;">斜销侧向分型抽芯机构.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销在动模、滑块在定模的机构之二.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销在动模、滑块在定模的机构之二.swf'); return false;">斜销在动模、滑块在定模的机构之二.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销抽芯机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销抽芯机构.swf'); return false;">斜销抽芯机构.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构三.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构三.swf'); return false;">斜销的侧向抽芯机构三.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构四.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构四.swf'); return false;">斜销的侧向抽芯机构四.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销的内侧向抽芯机构一.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销的内侧向抽芯机构一.swf'); return false;">斜销的内侧向抽芯机构一.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销（斜导柱）分型原理.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销（斜导柱）分型原理.swf'); return false;">斜销（斜导柱）分型原理.swf</a></li>
+<li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销侧向分型抽芯机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销侧向分型抽芯机构.swf'); return false;">斜销侧向分型抽芯机构.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销在动模、滑块在定模的机构之二.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销在动模、滑块在定模的机构之二.swf'); return false;">斜销在动模、滑块在定模的机构之二.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销抽芯机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销抽芯机构.swf'); return false;">斜销抽芯机构.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构三.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构三.swf'); return false;">斜销的侧向抽芯机构三.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构四.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构四.swf'); return false;">斜销的侧向抽芯机构四.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销的内侧向抽芯机构一.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销的内侧向抽芯机构一.swf'); return false;">斜销的内侧向抽芯机构一.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销（斜导柱）分型原理.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销（斜导柱）分型原理.swf'); return false;">斜销（斜导柱）分型原理.swf</a></li>
         </ul>
         <div class="pagination">
 <a href="index-page-注塑模具典型结构图册与动画演示-1.html"><button>1</button></a><a href="index-page-注塑模具典型结构图册与动画演示-2.html"><button disabled>2</button></a>
-        </div>
-        <div class="back-to-home">
-            <a href="index.html">返回主页</a>
         </div>
     </div>
     <div id="player">
