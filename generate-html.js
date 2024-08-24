@@ -185,12 +185,6 @@ function generateIndexPage(categories) {
         #directory a:hover {
             text-decoration: underline; /* 鼠标悬停时下划线 */
         }
-        .back-to-home a {
-            display: inline-block;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #007bff;
-        }
     </style>
 </head>
 <body>
@@ -206,9 +200,6 @@ function generateIndexPage(categories) {
 
     htmlContent += `
         </ul>
-    </div>
-    <div class="back-to-home">
-        <a href="index.html">返回主页</a>
     </div>
 </body>
 </html>
