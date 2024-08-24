@@ -13,16 +13,19 @@
             overflow-x: hidden; /* 禁止水平滚动 */
         }
         #player {
-            width: 100%;
-            height: auto;
-            box-sizing: border-box;
             display: flex;
             justify-content: center; /* 居中播放器 */
+            align-items: center; /* 垂直居中 */
+            width: 100%;
+            max-width: 100%; /* 确保播放器不会超过屏幕宽度 */
+            overflow: hidden; /* 防止播放器溢出容器 */
+            box-sizing: border-box;
         }
         .ruffle-player {
             width: 100%;
-            max-width: 100%;
+            max-width: 100%; /* 强制最大宽度为100% */
             height: auto;
+            object-fit: contain; /* 让播放器适应其容器 */
             box-sizing: border-box;
         }
     </style>
