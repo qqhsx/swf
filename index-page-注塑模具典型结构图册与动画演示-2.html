@@ -10,24 +10,26 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden; /* 禁止滚动 */
+            overflow: hidden;
             box-sizing: border-box;
         }
         #player {
             display: flex;
-            justify-content: center; /* 居中显示 */
+            justify-content: center;
             align-items: center;
             width: 100vw;
             height: 100vh;
-            overflow: hidden; /* 确保不会有内容超出容器 */
+            overflow: hidden;
             box-sizing: border-box;
         }
     </style>
 </head>
 <body>
+    <h1>SWF Viewer</h1> <!-- 添加测试内容 -->
     <div id="player">
         <div class="ruffle-player" id="container"></div>
     </div>
+    <p>如果你看到这行文字，页面是正常的。</p> <!-- 添加测试内容 -->
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     <script>
         window.RufflePlayer = window.RufflePlayer || {};
@@ -37,29 +39,29 @@
             const container = document.getElementById("container");
             container.appendChild(player);
             
-            // 设置播放器的宽度和高度为600x400px
+            // 设置播放器的宽度和高度为100%
             player.style.width = "100%"; 
             player.style.height = "100%";
-            player.style.maxWidth = "100vw";  // 最大宽度设置为屏幕宽度
-            player.style.maxHeight = "100vh"; // 最大高度设置为屏幕高度
+            player.style.maxWidth = "100vw";  
+            player.style.maxHeight = "100vh";
 
-            player.load("movie.swf"); // 替换为实际的 SWF 文件路径
+            player.load("path/to/your/movie.swf"); // 替换为实际的 SWF 文件路径
         });
 
         window.addEventListener("resize", () => {
             const player = document.getElementById("container").firstChild;
             player.style.width = "100%";
             player.style.height = "100%";
-            player.style.maxWidth = "100vw";  // 最大宽度设置为屏幕宽度
-            player.style.maxHeight = "100vh"; // 最大高度设置为屏幕高度
+            player.style.maxWidth = "100vw";  
+            player.style.maxHeight = "100vh";
         });
 
         window.addEventListener("orientationchange", () => {
             const player = document.getElementById("container").firstChild;
             player.style.width = "100%";
             player.style.height = "100%";
-            player.style.maxWidth = "100vw";  // 最大宽度设置为屏幕宽度
-            player.style.maxHeight = "100vh"; // 最大高度设置为屏幕高度
+            player.style.maxWidth = "100vw";  
+            player.style.maxHeight = "100vh";
         });
     </script>
 </body>
