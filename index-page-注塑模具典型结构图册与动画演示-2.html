@@ -2,64 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWF Viewer</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            box-sizing: border-box;
-        }
-        #player {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            box-sizing: border-box;
-        }
-    </style>
 </head>
 <body>
-    <div id="player">
-        <div class="ruffle-player" id="container"></div>
-    </div>
+    <div id="player-container"></div>
+    
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     <script>
         window.RufflePlayer = window.RufflePlayer || {};
         window.addEventListener("load", () => {
             const ruffle = window.RufflePlayer.newest();
             const player = ruffle.createPlayer();
-            const container = document.getElementById("container");
+            const container = document.getElementById("player-container");
             container.appendChild(player);
-            
-            // 设置播放器的宽度和高度为100%
-            player.style.width = "100%"; 
-            player.style.height = "100%";
-            player.style.maxWidth = "100vw";  
-            player.style.maxHeight = "100vh";
 
-            player.load("path/to/your/movie.swf"); // 替换为实际的 SWF 文件路径
-        });
-
-        window.addEventListener("resize", () => {
-            const player = document.getElementById("container").firstChild;
-            player.style.width = "100%";
-            player.style.height = "100%";
-            player.style.maxWidth = "100vw";  
-            player.style.maxHeight = "100vh";
-        });
-
-        window.addEventListener("orientationchange", () => {
-            const player = document.getElementById("container").firstChild;
-            player.style.width = "100%";
-            player.style.height = "100%";
-            player.style.maxWidth = "100vw";  
-            player.style.maxHeight = "100vh";
+            // Load your SWF file here
+            player.load("path/to/your/movie.swf");  // 替换为你的SWF文件路径
         });
     </script>
 </body>
