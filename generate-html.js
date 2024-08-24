@@ -5,7 +5,7 @@ const path = require('path');
 const swfDir = path.join(__dirname, 'swf');
 const filesPerPage = 10; // 每页显示的文件数量
 
-// 生成页面 HTML 内容
+// 生成单个页面 HTML 内容
 function generatePage(page, files, totalPages) {
     let htmlContent = `
 <!DOCTYPE html>
