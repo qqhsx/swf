@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SWF Viewer - 注塑模具典型结构图册与动画演示 - Page 2</title>
+    <title>SWF Viewer - Example - Page 1</title>
     <style>
         html, body {
             margin: 0;
@@ -38,7 +37,7 @@
             max-width: 100%; /* 强制限制播放器宽度 */
             box-sizing: border-box; /* 确保padding和border不会影响宽度 */
         }
-        /* 添加媒体查询以调整不同屏幕尺寸的布局 */
+        /* 媒体查询以调整不同屏幕尺寸的布局 */
         @media only screen and (max-width: 768px) {
             #directory {
                 font-size: 14px;
@@ -61,34 +60,14 @@
                 max-height: none; /* 移除高度限制 */
             }
         }
-        .pagination a {
-            margin: 0 5px;
-        }
-        .pagination button {
-            padding: 5px 10px;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-        .back-to-home a {
-            display: inline-block;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #007bff;
-        }
     </style>
 </head>
 <body>
     <div id="directory">
-        <h2>注塑模具典型结构图册与动画演示</h2>
+        <h2>Example</h2>
         <ul>
-<li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销（斜导柱）分型原理.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销（斜导柱）分型原理.swf'); return false;">斜销（斜导柱）分型原理.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜顶杆原理.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜顶杆原理.swf'); return false;">斜顶杆原理.swf</a></li>
+            <li><a href="#" data-src="swf/example.swf" onclick="loadSWF('swf/example.swf'); return false;">example.swf</a></li>
         </ul>
-        <div class="pagination">
-<a href="index-page-注塑模具典型结构图册与动画演示-1.html"><button>1</button></a><a href="index-page-注塑模具典型结构图册与动画演示-2.html"><button disabled>2</button></a>
-        </div>
-        <div class="back-to-home">
-            <a href="index.html">返回主页</a>
-        </div>
     </div>
     <div id="player">
         <div id="swf-container">
@@ -100,7 +79,8 @@
         document.addEventListener("DOMContentLoaded", () => {
             const ruffle = window.RufflePlayer.newest();
             const player = ruffle.createPlayer();
-            document.getElementById('player-container').appendChild(player);
+            const playerContainer = document.getElementById('player-container');
+            playerContainer.appendChild(player);
 
             window.loadSWF = function(src) {
                 player.load(src).catch(error => {
