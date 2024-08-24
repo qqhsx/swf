@@ -72,13 +72,24 @@ function generatePage(page, category, files, totalPages) {
             text-decoration: none;
             color: #007bff;
         }
+        .search-bar {
+            margin-bottom: 10px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
     <div id="container">
         <div id="directory">
             <h2>${category}</h2>
-            <ul>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="搜索文件..." onkeyup="filterFiles()">
+            </div>
+            <ul id="file-list">
 `;
 
     // 生成文件列表
@@ -136,6 +147,23 @@ function generatePage(page, category, files, totalPages) {
             // 页面加载时初次调整播放器大小
             resizePlayer();
         });
+
+        function filterFiles() {
+            const input = document.getElementById("search-input");
+            const filter = input.value.toLowerCase();
+            const ul = document.getElementById("file-list");
+            const li = ul.getElementsByTagName("li");
+
+            for (let i = 0; i < li.length; i++) {
+                const a = li[i].getElementsByTagName("a")[0];
+                const txtValue = a.textContent || a.innerText;
+                if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
     </script>
 </body>
 </html>
@@ -143,6 +171,8 @@ function generatePage(page, category, files, totalPages) {
 
     return htmlContent;
 }
+
+
 
 // 生成主页面 HTML 内容
 function generateIndexPage(categories) {
