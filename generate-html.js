@@ -18,85 +18,29 @@ function generatePage(page, category, files, totalPages) {
     <style>
         body {
             display: flex;
-            flex-direction: row;
-            margin: 0;
             font-family: Arial, sans-serif;
-            min-height: 100vh;
-            box-sizing: border-box;
-            overflow-x: hidden; /* 避免整体页面水平滚动 */
         }
         #directory {
-            width: 300px; /* 固定宽度适合桌面 */
+            width: 250px;
             border-right: 1px solid #ccc;
             padding: 10px;
-            box-sizing: border-box;
-            background-color: #f9f9f9;
             overflow-y: auto;
         }
         #player {
             flex-grow: 1;
             padding: 10px;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden; /* 避免播放器溢出 */
         }
         .ruffle-player {
             width: 100%;
-            max-width: 100%;
+            max-width: 800px;
             height: auto;
-            max-height: 80vh; /* 高度自适应视口 */
+            max-height: 600px;
         }
         .pagination {
             margin-top: 10px;
         }
         .pagination button {
-            margin: 2px;
-            padding: 5px 10px;
-            font-size: 14px;
-        }
-        .back-to-home {
-            margin-top: 10px;
-        }
-        .back-to-home a {
-            text-decoration: none;
-            color: #007bff;
-        }
-        .back-to-home a:hover {
-            text-decoration: underline;
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-            }
-            #directory {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid #ccc;
-                overflow-y: auto; /* 保证在移动端可以垂直滚动 */
-                overflow-x: hidden;
-            }
-            #player {
-                width: 100%;
-                padding: 5px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                box-sizing: border-box;
-            }
-            .ruffle-player {
-                width: 100%;
-                max-width: 100%;
-                height: auto;
-                max-height: 80vh; /* 确保播放器高度在视口内 */
-            }
-            .pagination button {
-                padding: 3px 6px;
-                font-size: 12px;
-            }
+            margin-right: 5px;
         }
     </style>
 </head>
@@ -124,9 +68,6 @@ function generatePage(page, category, files, totalPages) {
 
     htmlContent += `
         </div>
-        <div class="back-to-home">
-            <a href="index.html">返回主页</a>
-        </div>
     </div>
     <div id="player">
         <div id="swf-container">
@@ -152,10 +93,6 @@ function generatePage(page, category, files, totalPages) {
 
     return htmlContent;
 }
-
-
-
-
 
 // 生成主页面 HTML 内容
 function generateIndexPage(categories) {
