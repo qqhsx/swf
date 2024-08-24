@@ -4,26 +4,52 @@ const path = require('path');
 // 目录路径
 const swfDir = path.join(__dirname, 'swf');
 const filesPerPage = 10; // 每页显示的文件数量
-const publicDir = path.join(__dirname, 'public'); // public 目录路径
 
-// 确保 public 目录存在
-if (!fs.existsSync(publicDir)) {
-    fs.mkdirSync(publicDir);
-}
+// 生成主页 HTML 内容
+function generateHomePage(categories) {
+    let htmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SWF Viewer - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .category-list {
+            list-style: none;
+            padding: 0;
+        }
+        .category-list li {
+            margin: 10px 0;
+        }
+        .category-list a {
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <h1>SWF Viewer - Home</h1>
+    <ul class="category-list">
+`;
 
-// 生成 files.js 文件，包含所有文件信息
-function generateFilesJS() {
-    const categories = fs.readdirSync(swfDir).filter(file => fs.statSync(path.join(swfDir, file)).isDirectory());
-    const filesByCategory = {};
-
+    // 生成分类链接
     categories.forEach(category => {
-        const categoryPath = path.join(swfDir, category);
-        const files = fs.readdirSync(categoryPath).filter(file => file.endsWith('.swf'));
-        filesByCategory[category] = files;
+        htmlContent += `<li><a href="index-${category}.html">${category}</a></li>`;
     });
 
-    const data = 'const filesData = ' + JSON.stringify(filesByCategory, null, 4) + ';';
-    fs.writeFileSync(path.join(publicDir, 'files.js'), data); // 写入到 public 目录
+    htmlContent += `
+    </ul>
+</body>
+</html>
+    `;
+
+    fs.writeFileSync(path.join(__dirname, 'public', 'index.html'), htmlContent);
 }
 
 // 生成单个页面 HTML 内容
@@ -108,15 +134,15 @@ function generatePage(page, category, files, totalPages) {
         <div id="directory">
             <h2>${category}</h2>
             <div class="search-bar">
-                <input type="text" id="search-input" placeholder="搜索文件..." onkeyup="searchFiles()">
+                <input type="text" id="search-input" placeholder="搜索文件..." onkeyup="filterFiles()">
             </div>
             <ul id="file-list">
 `;
 
     // 生成文件列表
     files.forEach(file => {
-        const filePath = 'swf/' + category + '/' + file;
-        htmlContent += '<li><a href="#" data-src="' + filePath + '" onclick="loadSWF(\'' + filePath + '\'); return false;">' + file + '</a></li>';
+        const filePath = `swf/${category}/${file}`;
+        htmlContent += `<li><a href="#" data-src="${filePath}" onclick="loadSWF('${filePath}'); return false;">${file}</a></li>`;
     });
 
     htmlContent += `
@@ -126,7 +152,7 @@ function generatePage(page, category, files, totalPages) {
 
     // 生成分页按钮
     for (let i = 1; i <= totalPages; i++) {
-        htmlContent += '<a href="index-page-' + category + '-' + i + '.html"><button' + (i === page ? ' disabled' : '') + '>' + i + '</button></a>';
+        htmlContent += `<a href="index-page-${category}-${i}.html"><button${i === page ? ' disabled' : ''}>${i}</button></a>`;
     }
 
     htmlContent += `
@@ -142,7 +168,6 @@ function generatePage(page, category, files, totalPages) {
         </div>
     </div>
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
-    <script src="files.js"></script> <!-- 引入文件数据 -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const ruffle = window.RufflePlayer.newest();
@@ -170,51 +195,49 @@ function generatePage(page, category, files, totalPages) {
             resizePlayer();
         });
 
-        function searchFiles() {
+        function filterFiles() {
             const input = document.getElementById("search-input");
             const filter = input.value.toLowerCase();
-            const fileList = document.getElementById("file-list");
-            fileList.innerHTML = "";
+            const ul = document.getElementById("file-list");
+            const li = ul.getElementsByTagName("li");
 
-            for (const category in filesData) {
-                filesData[category].forEach(file => {
-                    if (file.toLowerCase().includes(filter)) {
-                        const filePath = 'swf/' + category + '/' + file;
-                        fileList.innerHTML += '<li><a href="#" data-src="' + filePath + '" onclick="loadSWF(\'' + filePath + '\'); return false;">' + category + ' / ' + file + '</a></li>';
-                    }
-                });
-            }
-
-            if (fileList.innerHTML === "") {
-                fileList.innerHTML = "<li>未找到匹配的文件</li>";
+            for (let i = 0; i < li.length; i++) {
+                const a = li[i].getElementsByTagName("a")[0];
+                const txtValue = a.textContent || a.innerText;
+                if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
             }
         }
     </script>
 </body>
 </html>
-`;
+    `;
 
-    // 保存页面内容到文件
-    const outputPath = path.join(publicDir, 'index-page-' + category + '-' + page + '.html');
-    fs.writeFileSync(outputPath, htmlContent);
+    fs.writeFileSync(path.join(__dirname, 'public', `index-page-${category}-${page}.html`), htmlContent);
 }
 
-// 生成所有页面
-function generateAllPages() {
+// 读取目录中的文件
+function generateHTML() {
     const categories = fs.readdirSync(swfDir).filter(file => fs.statSync(path.join(swfDir, file)).isDirectory());
 
+    // 生成主页
+    generateHomePage(categories);
+
     categories.forEach(category => {
-        const categoryPath = path.join(swfDir, category);
-        const files = fs.readdirSync(categoryPath).filter(file => file.endsWith('.swf'));
+        const categoryDir = path.join(swfDir, category);
+        const files = fs.readdirSync(categoryDir).filter(file => path.extname(file) === '.swf');
         const totalPages = Math.ceil(files.length / filesPerPage);
 
-        for (let i = 0; i < totalPages; i++) {
-            const pageFiles = files.slice(i * filesPerPage, (i + 1) * filesPerPage);
-            generatePage(i + 1, category, pageFiles, totalPages);
+        for (let page = 1; page <= totalPages; page++) {
+            const start = (page - 1) * filesPerPage;
+            const end = Math.min(start + filesPerPage, files.length);
+            generatePage(page, category, files.slice(start, end), totalPages);
         }
     });
 }
 
-// 生成文件数据和页面
-generateFilesJS();
-generateAllPages();
+// 执行生成
+generateHTML();
