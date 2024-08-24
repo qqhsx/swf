@@ -21,7 +21,7 @@ function generatePage(page, category, files, totalPages) {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            overflow-x: hidden; /* 禁用水平滚动 */
+            box-sizing: border-box; /* 使所有元素包括边框和填充在内 */
         }
         #directory {
             width: 100%; /* 使目录列表在移动设备上全宽 */
@@ -33,12 +33,15 @@ function generatePage(page, category, files, totalPages) {
             flex-grow: 1;
             padding: 10px;
             box-sizing: border-box;
+            width: 100%; /* 确保播放器容器宽度不超过屏幕 */
+            overflow-x: auto; /* 允许内容溢出时水平滚动 */
         }
         .ruffle-player {
             width: 100%; /* 使播放器在移动设备上全宽 */
             height: auto;
-            max-width: 100%; /* 限制播放器宽度为屏幕宽度 */
+            max-width: 100%; /* 强制限制播放器宽度 */
             max-height: 300px; /* 限制播放器高度为合理值 */
+            box-sizing: border-box;
         }
         /* 添加媒体查询以调整不同屏幕尺寸的布局 */
         @media only screen and (max-width: 768px) {
@@ -161,7 +164,7 @@ function generateIndexPage(categories) {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            overflow-x: hidden; /* 禁用水平滚动 */
+            box-sizing: border-box; /* 使所有元素包括边框和填充在内 */
         }
         #directory {
             width: 100%; /* 使目录列表在移动设备上全宽 */
