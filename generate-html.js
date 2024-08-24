@@ -18,14 +18,12 @@ function generatePage(page, category, files, totalPages) {
     <style>
         body {
             display: flex;
-            flex-direction: column;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
         #directory {
-            width: 100%;
-            max-width: 250px;
+            width: 250px;
             border-right: 1px solid #ccc;
             padding: 10px;
             overflow-y: auto;
@@ -38,7 +36,6 @@ function generatePage(page, category, files, totalPages) {
         }
         .ruffle-player {
             width: 100%;
-            max-width: 100%;
             height: auto;
             max-height: 600px;
         }
@@ -59,16 +56,20 @@ function generatePage(page, category, files, totalPages) {
             text-decoration: underline;
         }
         @media (max-width: 768px) {
-            #directory {
-                max-width: 100%;
-                border-right: none;
-                border-bottom: 1px solid #ccc;
-            }
             body {
                 flex-direction: column;
             }
+            #directory {
+                width: 100%;
+                max-width: none;
+                border-right: none;
+                border-bottom: 1px solid #ccc;
+                overflow: hidden;
+                padding: 5px;
+            }
             #player {
-                padding: 0;
+                width: 100%;
+                padding: 5px;
             }
         }
     </style>
@@ -144,8 +145,7 @@ function generateIndexPage(categories) {
             padding: 0;
         }
         #directory {
-            width: 100%;
-            max-width: 250px;
+            width: 250px;
             border-right: 1px solid #ccc;
             padding: 10px;
             overflow-y: auto;
@@ -172,15 +172,19 @@ function generateIndexPage(categories) {
         }
         @media (max-width: 768px) {
             #directory {
-                max-width: 100%;
+                width: 100%;
+                max-width: none;
                 border-right: none;
                 border-bottom: 1px solid #ccc;
+                overflow: hidden;
+                padding: 5px;
             }
             body {
                 flex-direction: column;
             }
             #player {
-                padding: 0;
+                width: 100%;
+                padding: 5px;
             }
         }
     </style>
