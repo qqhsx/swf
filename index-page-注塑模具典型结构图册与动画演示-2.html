@@ -63,13 +63,24 @@
             text-decoration: none;
             color: #007bff;
         }
+        .search-bar {
+            margin-bottom: 10px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
     <div id="container">
         <div id="directory">
             <h2>注塑模具典型结构图册与动画演示</h2>
-            <ul>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="搜索文件..." onkeyup="filterFiles()">
+            </div>
+            <ul id="file-list">
 <li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销（斜导柱）分型原理.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销（斜导柱）分型原理.swf'); return false;">斜销（斜导柱）分型原理.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜顶杆原理.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜顶杆原理.swf'); return false;">斜顶杆原理.swf</a></li>
             </ul>
             <div class="pagination">
@@ -112,6 +123,23 @@
             // 页面加载时初次调整播放器大小
             resizePlayer();
         });
+
+        function filterFiles() {
+            const input = document.getElementById("search-input");
+            const filter = input.value.toLowerCase();
+            const ul = document.getElementById("file-list");
+            const li = ul.getElementsByTagName("li");
+
+            for (let i = 0; i < li.length; i++) {
+                const a = li[i].getElementsByTagName("a")[0];
+                const txtValue = a.textContent || a.innerText;
+                if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
     </script>
 </body>
 </html>
