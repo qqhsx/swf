@@ -12,73 +12,51 @@ function generatePage(page, category, files, totalPages) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SWF Viewer - ${category} - Page ${page}</title>
-    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     <style>
         body {
             display: flex;
+            flex-direction: column; /* stack elements vertically on mobile devices */
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            overflow: hidden;
         }
         #directory {
-            width: 250px;
-            border-right: 1px solid #ccc;
+            width: 100%; /* make the directory list full-width on mobile devices */
+            border-right: none; /* remove border on mobile devices */
             padding: 10px;
             overflow-y: auto;
-            box-sizing: border-box;
         }
         #player {
             flex-grow: 1;
             padding: 10px;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
         }
         .ruffle-player {
-            width: 100%;
-            max-width: 100%;
+            width: 100%; /* make the player full-width on mobile devices */
             height: auto;
-            max-height: 600px;
+            max-width: 100%; /* limit the player width to the screen width */
+            max-height: 300px; /* limit the player height to a reasonable value */
         }
-        .pagination {
-            margin-top: 10px;
-        }
-        .pagination button {
-            margin-right: 5px;
-        }
-        .back-to-home {
-            margin-top: 10px;
-        }
-        .back-to-home a {
-            text-decoration: none;
-            color: #007bff;
-        }
-        .back-to-home a:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 768px) {
+        /* add media queries to adjust layout for different screen sizes */
+        @media only screen and (max-width: 768px) {
             #directory {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid #ccc;
-                overflow: hidden;
-                padding: 5px;
+                font-size: 14px;
             }
             #player {
-                width: 100%;
                 padding: 5px;
-                overflow: hidden;
             }
             .ruffle-player {
-                max-width: 100vw;
-                max-height: 80vh; /* 控制播放器的最大高度，避免溢出 */
-                height: auto;
+                max-height: 200px;
+            }
+        }
+        @media only screen and (max-width: 480px) {
+            #directory {
+                font-size: 12px;
+            }
+            #player {
+                padding: 2px;
+            }
+            .ruffle-player {
+                max-height: 150px;
             }
         }
     </style>
@@ -128,6 +106,11 @@ function generatePage(page, category, files, totalPages) {
                 });
             };
         });
+        window.addEventListener("orientationchange", () => {
+            const player = document.getElementById("player-container");
+            player.style.width = "100%";
+            player.style.height = "auto";
+        });
     </script>
 </body>
 </html>
@@ -143,61 +126,37 @@ function generateIndexPage(categories) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SWF Viewer</title>
     <style>
         body {
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* stack elements vertically on mobile devices */
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            overflow: hidden;
         }
         #directory {
-            width: 250px;
-            border-right: 1px solid #ccc;
+            width: 100%; /* make the directory list full-width on mobile devices */
+            border-right: none; /* remove border on mobile devices */
             padding: 10px;
             overflow-y: auto;
-            box-sizing: border-box;
         }
         #player {
             flex-grow: 1;
             padding: 10px;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
         }
         #directory ul {
-            list-style-type: none;
+            list-style-type: none; /* 去掉列表的默认样式 */
             padding: 0;
         }
         #directory li {
-            margin-bottom: 10px;
+            margin-bottom: 10px; /* 每个分类项之间的间隔 */
         }
         #directory a {
-            text-decoration: none;
-            color: #007bff;
+            text-decoration: none; /* 去掉链接的下划线 */
+            color: #007bff; /* 设置链接颜色 */
         }
         #directory a:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 768px) {
-            #directory {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid #ccc;
-                overflow: hidden;
-                padding: 5px;
-            }
-            #player {
-                width: 100%;
-                padding: 5px;
-                overflow: hidden;
-            }
+            text-decoration: underline; /* 鼠标悬停时下划线 */
         }
     </style>
 </head>
@@ -231,6 +190,11 @@ function generateIndexPage(categories) {
                     console.error('Error loading SWF:', error);
                 });
             };
+        });
+        window.addEventListener("orientationchange", () => {
+            const player = document.getElementById("player-container");
+            player.style.width = "100%";
+            player.style.height = "auto";
         });
     </script>
 </body>
