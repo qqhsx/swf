@@ -78,7 +78,7 @@
         <div id="directory">
             <h2>塑料注射模具机构设计动画演示200例</h2>
             <div class="search-bar">
-                <input type="text" id="search-input" placeholder="搜索文件..." onkeyup="searchFiles()">
+                <input type="text" id="search-input" placeholder="搜索文件..." onkeyup="filterFiles()">
             </div>
             <ul id="file-list">
 <li><a href="#" data-src="swf/塑料注射模具机构设计动画演示200例/Spardose.swf" onclick="loadSWF('swf/塑料注射模具机构设计动画演示200例/Spardose.swf'); return false;">Spardose.swf</a></li><li><a href="#" data-src="swf/塑料注射模具机构设计动画演示200例/sbdz.swf" onclick="loadSWF('swf/塑料注射模具机构设计动画演示200例/sbdz.swf'); return false;">sbdz.swf</a></li>
@@ -97,7 +97,6 @@
         </div>
     </div>
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
-    <script src="files.js"></script> <!-- 引入文件数据 -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const ruffle = window.RufflePlayer.newest();
@@ -125,25 +124,23 @@
             resizePlayer();
         });
 
-        function searchFiles() {
+        function filterFiles() {
             const input = document.getElementById("search-input");
             const filter = input.value.toLowerCase();
-            const fileList = document.getElementById("file-list");
-            fileList.innerHTML = "";
+            const ul = document.getElementById("file-list");
+            const li = ul.getElementsByTagName("li");
 
-            for (const category in filesData) {
-                filesData[category].forEach(file => {
-                    if (file.toLowerCase().includes(filter)) {
-                        const filePath = 'swf/' + category + '/' + file;
-                        fileList.innerHTML += '<li><a href="#" data-src="' + filePath + '" onclick="loadSWF('' + filePath + ''); return false;">' + category + ' / ' + file + '</a></li>';
-                    }
-                });
-            }
-
-            if (fileList.innerHTML === "") {
-                fileList.innerHTML = "<li>未找到匹配的文件</li>";
+            for (let i = 0; i < li.length; i++) {
+                const a = li[i].getElementsByTagName("a")[0];
+                const txtValue = a.textContent || a.innerText;
+                if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
             }
         }
     </script>
 </body>
 </html>
+    
