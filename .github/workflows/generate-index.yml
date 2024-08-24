@@ -29,8 +29,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "378600950@qq.com"
+          git config --local user.name "qqhsx"
           git add *.html
           git commit -m "Auto-generate HTML files"
           git push
