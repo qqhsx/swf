@@ -23,6 +23,7 @@ function generatePage(page, category, files, totalPages) {
             font-family: Arial, sans-serif;
             min-height: 100vh;
             box-sizing: border-box;
+            overflow-x: hidden; /* 避免整体页面水平滚动 */
         }
         #directory {
             width: 300px; /* 固定宽度适合桌面 */
@@ -45,7 +46,7 @@ function generatePage(page, category, files, totalPages) {
             width: 100%;
             max-width: 100%;
             height: auto;
-            max-height: 80vh; /* 高度适应视口 */
+            max-height: 80vh; /* 高度自适应视口 */
         }
         .pagination {
             margin-top: 10px;
@@ -75,7 +76,7 @@ function generatePage(page, category, files, totalPages) {
                 width: 100%;
                 border-right: none;
                 border-bottom: 1px solid #ccc;
-                overflow-y: auto;
+                overflow-y: auto; /* 保证在移动端可以垂直滚动 */
                 overflow-x: hidden;
             }
             #player {
@@ -84,6 +85,13 @@ function generatePage(page, category, files, totalPages) {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                box-sizing: border-box;
+            }
+            .ruffle-player {
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                max-height: 80vh; /* 确保播放器高度在视口内 */
             }
             .pagination button {
                 padding: 3px 6px;
@@ -144,8 +152,6 @@ function generatePage(page, category, files, totalPages) {
 
     return htmlContent;
 }
-
-
 
 
 
