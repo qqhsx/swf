@@ -32,15 +32,14 @@ function generatePage(page, category, files, totalPages) {
         #player {
             flex-grow: 1;
             padding: 10px;
-            box-sizing: border-box;
             width: 100%; /* 确保播放器容器宽度不超过屏幕 */
             overflow-x: auto; /* 允许内容溢出时水平滚动 */
+            box-sizing: border-box;
         }
         .ruffle-player {
             width: 100%; /* 使播放器在移动设备上全宽 */
             height: auto;
             max-width: 100%; /* 强制限制播放器宽度 */
-            max-height: 300px; /* 限制播放器高度为合理值 */
             box-sizing: border-box;
         }
         /* 添加媒体查询以调整不同屏幕尺寸的布局 */
@@ -52,7 +51,7 @@ function generatePage(page, category, files, totalPages) {
                 padding: 5px;
             }
             .ruffle-player {
-                max-height: 200px; /* 在平板设备上限制最大高度 */
+                max-height: none; /* 移除高度限制 */
             }
         }
         @media only screen and (max-width: 480px) {
@@ -63,7 +62,7 @@ function generatePage(page, category, files, totalPages) {
                 padding: 2px;
             }
             .ruffle-player {
-                max-height: 150px; /* 在手机设备上限制最大高度 */
+                max-height: none; /* 移除高度限制 */
             }
         }
         .pagination a {
