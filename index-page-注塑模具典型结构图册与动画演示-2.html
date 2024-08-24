@@ -12,6 +12,8 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            height: 100vh;
+            overflow: hidden;
         }
         #directory {
             width: 250px;
@@ -24,9 +26,14 @@
             flex-grow: 1;
             padding: 10px;
             box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
         .ruffle-player {
             width: 100%;
+            max-width: 100%;
             height: auto;
             max-height: 600px;
         }
@@ -47,12 +54,8 @@
             text-decoration: underline;
         }
         @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-            }
             #directory {
                 width: 100%;
-                max-width: none;
                 border-right: none;
                 border-bottom: 1px solid #ccc;
                 overflow: hidden;
@@ -61,6 +64,12 @@
             #player {
                 width: 100%;
                 padding: 5px;
+                overflow: hidden;
+            }
+            .ruffle-player {
+                max-width: 100vw;
+                max-height: 80vh; /* 控制播放器的最大高度，避免溢出 */
+                height: auto;
             }
         }
     </style>
@@ -69,7 +78,7 @@
     <div id="directory">
         <h2>注塑模具典型结构图册与动画演示</h2>
         <ul>
-<li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构三.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构三.swf'); return false;">斜销的侧向抽芯机构三.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构四.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构四.swf'); return false;">斜销的侧向抽芯机构四.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销的内侧向抽芯机构一.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销的内侧向抽芯机构一.swf'); return false;">斜销的内侧向抽芯机构一.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销（斜导柱）分型原理.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销（斜导柱）分型原理.swf'); return false;">斜销（斜导柱）分型原理.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜顶杆原理.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜顶杆原理.swf'); return false;">斜顶杆原理.swf</a></li>
+<li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销抽芯机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销抽芯机构.swf'); return false;">斜销抽芯机构.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构三.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构三.swf'); return false;">斜销的侧向抽芯机构三.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构四.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构四.swf'); return false;">斜销的侧向抽芯机构四.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销的内侧向抽芯机构一.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销的内侧向抽芯机构一.swf'); return false;">斜销的内侧向抽芯机构一.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销（斜导柱）分型原理.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销（斜导柱）分型原理.swf'); return false;">斜销（斜导柱）分型原理.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜顶杆原理.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜顶杆原理.swf'); return false;">斜顶杆原理.swf</a></li>
         </ul>
         <div class="pagination">
 <a href="index-page-注塑模具典型结构图册与动画演示-1.html"><button>1</button></a><a href="index-page-注塑模具典型结构图册与动画演示-2.html"><button disabled>2</button></a>
