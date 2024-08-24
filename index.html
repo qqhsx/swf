@@ -3,61 +3,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SWF Viewer</title>
     <style>
         body {
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* stack elements vertically on mobile devices */
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            overflow: hidden;
         }
         #directory {
-            width: 250px;
-            border-right: 1px solid #ccc;
+            width: 100%; /* make the directory list full-width on mobile devices */
+            border-right: none; /* remove border on mobile devices */
             padding: 10px;
             overflow-y: auto;
-            box-sizing: border-box;
         }
         #player {
             flex-grow: 1;
             padding: 10px;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
         }
         #directory ul {
-            list-style-type: none;
+            list-style-type: none; /* 去掉列表的默认样式 */
             padding: 0;
         }
         #directory li {
-            margin-bottom: 10px;
+            margin-bottom: 10px; /* 每个分类项之间的间隔 */
         }
         #directory a {
-            text-decoration: none;
-            color: #007bff;
+            text-decoration: none; /* 去掉链接的下划线 */
+            color: #007bff; /* 设置链接颜色 */
         }
         #directory a:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 768px) {
-            #directory {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid #ccc;
-                overflow: hidden;
-                padding: 5px;
-            }
-            #player {
-                width: 100%;
-                padding: 5px;
-                overflow: hidden;
-            }
+            text-decoration: underline; /* 鼠标悬停时下划线 */
         }
     </style>
 </head>
@@ -84,6 +60,11 @@
                     console.error('Error loading SWF:', error);
                 });
             };
+        });
+        window.addEventListener("orientationchange", () => {
+            const player = document.getElementById("player-container");
+            player.style.width = "100%";
+            player.style.height = "auto";
         });
     </script>
 </body>
