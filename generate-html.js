@@ -16,7 +16,7 @@ function generateFilesJS() {
         filesByCategory[category] = files;
     });
 
-    const data = `const filesData = ${JSON.stringify(filesByCategory, null, 4)};`;
+    const data = 'const filesData = ' + JSON.stringify(filesByCategory, null, 4) + ';';
     fs.writeFileSync(path.join(__dirname, 'public', 'files.js'), data);
 }
 
@@ -110,7 +110,7 @@ function generatePage(page, category, files, totalPages) {
     // 生成文件列表
     files.forEach(file => {
         const filePath = 'swf/' + category + '/' + file;
-        htmlContent += `<li><a href="#" data-src="${filePath}" onclick="loadSWF('${filePath}'); return false;">${file}</a></li>`;
+        htmlContent += '<li><a href="#" data-src="' + filePath + '" onclick="loadSWF(\'' + filePath + '\'); return false;">' + file + '</a></li>';
     });
 
     htmlContent += `
@@ -120,7 +120,7 @@ function generatePage(page, category, files, totalPages) {
 
     // 生成分页按钮
     for (let i = 1; i <= totalPages; i++) {
-        htmlContent += `<a href="index-page-${category}-${i}.html"><button${i === page ? ' disabled' : ''}>${i}</button></a>`;
+        htmlContent += '<a href="index-page-' + category + '-' + i + '.html"><button' + (i === page ? ' disabled' : '') + '>' + i + '</button></a>';
     }
 
     htmlContent += `
@@ -174,7 +174,7 @@ function generatePage(page, category, files, totalPages) {
                 filesData[category].forEach(file => {
                     if (file.toLowerCase().includes(filter)) {
                         const filePath = 'swf/' + category + '/' + file;
-                        fileList.innerHTML += `<li><a href="#" data-src="${filePath}" onclick="loadSWF('${filePath}'); return false;">${category} / ${file}</a></li>`;
+                        fileList.innerHTML += '<li><a href="#" data-src="' + filePath + '" onclick="loadSWF(\'' + filePath + '\'); return false;">' + category + ' / ' + file + '</a></li>';
                     }
                 });
             }
@@ -187,8 +187,9 @@ function generatePage(page, category, files, totalPages) {
 </body>
 </html>
 `;
+
     // 保存页面内容到文件
-    const outputPath = path.join(__dirname, 'public', `index-page-${category}-${page}.html`);
+    const outputPath = path.join(__dirname, 'public', 'index-page-' + category + '-' + page + '.html');
     fs.writeFileSync(outputPath, htmlContent);
 }
 
