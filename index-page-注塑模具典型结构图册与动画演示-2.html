@@ -9,9 +9,9 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            overflow-x: hidden; /* 禁止水平滚动 */
             width: 100%;
             max-width: 100%; /* 限制页面最大宽度 */
+            overflow-x: hidden; /* 禁止水平滚动 */
         }
         body {
             display: flex;
@@ -30,6 +30,7 @@
             width: 100%; /* 确保播放器容器宽度不超过屏幕 */
             box-sizing: border-box;
             max-width: 100%; /* 强制限制播放器容器宽度 */
+            overflow: hidden; /* 强制隐藏任何溢出的内容 */
         }
         .ruffle-player {
             width: 100%; /* 使播放器在移动设备上全宽 */
@@ -70,8 +71,8 @@
         </ul>
     </div>
     <div id="player">
-        <div id="swf-container">
-            <div class="ruffle-player" id="player-container"></div>
+        <div id="swf-container" style="width: 100%; max-width: 100%; overflow: hidden;">
+            <div class="ruffle-player" id="player-container" style="width: 100%; max-width: 100%;"></div>
         </div>
     </div>
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
