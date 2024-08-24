@@ -2,8 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SWF Viewer</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden; /* 禁止水平滚动 */
+        }
+        #player-container {
+            width: 100%;
+            height: auto;
+            box-sizing: border-box; /* 确保填充和边框不会影响总宽度 */
+            max-width: 100%; /* 确保播放器不超过屏幕宽度 */
+        }
+        .ruffle-player {
+            width: 100%;
+            height: auto;
+            max-width: 100%; /* 确保播放器不会超过屏幕宽度 */
+        }
+    </style>
 </head>
 <body>
     <div id="player-container"></div>
@@ -18,8 +38,8 @@
             container.appendChild(player);
 
             // 设置播放器的宽度和高度
-            player.style.width = "400px";
-            player.style.height = "300px";
+            player.style.width = "100%";
+            player.style.height = "auto";
 
             // Load your SWF file here
             player.load("path/to/your/movie.swf");  // 替换为你的SWF文件路径
