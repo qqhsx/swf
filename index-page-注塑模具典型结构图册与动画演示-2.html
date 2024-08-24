@@ -17,6 +17,10 @@
             const container = document.getElementById("player-container");
             container.appendChild(player);
 
+            // 设置播放器的宽度和高度
+            player.style.width = "600px";
+            player.style.height = "400px";
+
             // Load your SWF file here
             player.load("path/to/your/movie.swf");  // 替换为你的SWF文件路径
         });
