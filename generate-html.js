@@ -17,49 +17,45 @@ function generatePage(page, category, files, totalPages) {
     <style>
         body {
             display: flex;
-            flex-direction: column; /* 垂直堆叠元素，适配移动设备 */
+            flex-direction: column;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            overflow-x: hidden; /* 禁用水平滚动 */
+            overflow-x: hidden;
+        }
+        #container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
         }
         #directory {
-            width: 100%; /* 使目录列表在移动设备上全宽 */
+            width: 100%;
             padding: 10px;
             overflow-y: auto;
-            box-sizing: border-box; /* 确保padding和border不会影响宽度 */
-        }
-        #player {
-            flex-grow: 1;
-            padding: 10px;
             box-sizing: border-box;
         }
+        #player {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            flex-grow: 1;
+        }
         .ruffle-player {
-            width: 100%; /* 使播放器在移动设备上全宽 */
+            width: 100%;
             height: auto;
-            max-width: 100%; /* 限制播放器宽度为屏幕宽度 */
+            max-width: 100%;
         }
-        /* 添加媒体查询以调整不同屏幕尺寸的布局 */
-        @media only screen and (max-width: 768px) {
+        @media only screen and (min-width: 768px) {
+            #container {
+                flex-direction: row; /* 在较宽屏幕上并排显示 */
+            }
             #directory {
-                font-size: 14px;
+                width: 30%; /* 目录占30%宽度 */
             }
             #player {
-                padding: 5px;
-            }
-            .ruffle-player {
-                max-height: 200px; /* 在平板设备上限制最大高度 */
-            }
-        }
-        @media only screen and (max-width: 480px) {
-            #directory {
-                font-size: 12px;
-            }
-            #player {
-                padding: 2px;
-            }
-            .ruffle-player {
-                max-height: 150px; /* 在手机设备上限制最大高度 */
+                width: 70%; /* 播放器占70%宽度 */
             }
         }
         .pagination a {
@@ -79,9 +75,10 @@ function generatePage(page, category, files, totalPages) {
     </style>
 </head>
 <body>
-    <div id="directory">
-        <h2>${category}</h2>
-        <ul>
+    <div id="container">
+        <div id="directory">
+            <h2>${category}</h2>
+            <ul>
 `;
 
     // 生成文件列表
@@ -91,8 +88,8 @@ function generatePage(page, category, files, totalPages) {
     });
 
     htmlContent += `
-        </ul>
-        <div class="pagination">
+            </ul>
+            <div class="pagination">
 `;
 
     // 生成分页按钮
@@ -101,14 +98,15 @@ function generatePage(page, category, files, totalPages) {
     }
 
     htmlContent += `
+            </div>
+            <div class="back-to-home">
+                <a href="index.html">返回主页</a>
+            </div>
         </div>
-        <div class="back-to-home">
-            <a href="index.html">返回主页</a>
-        </div>
-    </div>
-    <div id="player">
-        <div id="swf-container">
-            <div class="ruffle-player" id="player-container"></div>
+        <div id="player">
+            <div id="swf-container">
+                <div class="ruffle-player" id="player-container"></div>
+            </div>
         </div>
     </div>
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
@@ -124,7 +122,6 @@ function generatePage(page, category, files, totalPages) {
                 });
             };
 
-            // 调整播放器大小
             function resizePlayer() {
                 const container = document.getElementById("player-container");
                 const containerWidth = container.offsetWidth;
@@ -159,31 +156,31 @@ function generateIndexPage(categories) {
     <style>
         body {
             display: flex;
-            flex-direction: column; /* 垂直堆叠元素，适配移动设备 */
+            flex-direction: column;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            overflow-x: hidden; /* 禁用水平滚动 */
+            overflow-x: hidden;
         }
         #directory {
-            width: 100%; /* 使目录列表在移动设备上全宽 */
+            width: 100%;
             padding: 10px;
             overflow-y: auto;
-            box-sizing: border-box; /* 确保padding和border不会影响宽度 */
+            box-sizing: border-box;
         }
         #directory ul {
-            list-style-type: none; /* 去掉列表的默认样式 */
+            list-style-type: none;
             padding: 0;
         }
         #directory li {
-            margin-bottom: 10px; /* 每个分类项之间的间隔 */
+            margin-bottom: 10px;
         }
         #directory a {
-            text-decoration: none; /* 去掉链接的下划线 */
-            color: #007bff; /* 设置链接颜色 */
+            text-decoration: none;
+            color: #007bff;
         }
         #directory a:hover {
-            text-decoration: underline; /* 鼠标悬停时下划线 */
+            text-decoration: underline;
         }
     </style>
 </head>
