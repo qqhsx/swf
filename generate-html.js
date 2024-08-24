@@ -25,7 +25,7 @@ function generatePage(page, category, files, totalPages) {
             box-sizing: border-box;
         }
         #directory {
-            width: 300px;
+            width: 300px; /* 适合桌面显示 */
             border-right: 1px solid #ccc;
             padding: 10px;
             box-sizing: border-box;
@@ -39,6 +39,7 @@ function generatePage(page, category, files, totalPages) {
             display: flex;
             justify-content: center;
             align-items: center;
+            width: calc(100% - 20px); /* 适应 padding */
         }
         .ruffle-player {
             width: 100%;
@@ -78,6 +79,7 @@ function generatePage(page, category, files, totalPages) {
                 overflow-x: auto;
             }
             #player {
+                width: 100%; /* 适应手机屏幕宽度 */
                 padding: 5px;
                 display: flex;
                 justify-content: center;
@@ -142,6 +144,7 @@ function generatePage(page, category, files, totalPages) {
 
     return htmlContent;
 }
+
 
 
 
