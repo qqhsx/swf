@@ -1,0 +1,36 @@
+name: Generate Index HTML
+
+on:
+  push:
+    paths:
+      - 'swf/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: List files
+        run: ls -al
+
+      - name: Generate index.html
+        run: node generate-html.js
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "378600950@qq.com"
+          git config --local user.name "qqhsx"
+          git add *.html
+          git commit -m "Auto-generate HTML files"
+          git push
