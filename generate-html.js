@@ -18,25 +18,17 @@ function generatePage(page, category, files, totalPages) {
     <style>
         body {
             display: flex;
-            flex-direction: column;
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
         }
         #directory {
-            width: 100%;
-            max-width: 250px;
+            width: 250px;
             border-right: 1px solid #ccc;
             padding: 10px;
             overflow-y: auto;
-            box-sizing: border-box;
         }
         #player {
             flex-grow: 1;
             padding: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
         .ruffle-player {
             width: 100%;
@@ -46,27 +38,19 @@ function generatePage(page, category, files, totalPages) {
         }
         .pagination {
             margin-top: 10px;
-            text-align: center;
         }
         .pagination button {
-            margin: 0 5px;
+            margin-right: 5px;
         }
-        @media (max-width: 768px) {
-            #directory {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid #ccc;
-                padding: 10px 0;
-            }
-            .pagination {
-                display: flex;
-                flex-direction: column;
-            }
+        .back-to-home {
+            margin-top: 10px;
         }
-        @media (max-width: 480px) {
-            .ruffle-player {
-                max-height: 400px;
-            }
+        .back-to-home a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .back-to-home a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -93,6 +77,9 @@ function generatePage(page, category, files, totalPages) {
     }
 
     htmlContent += `
+        </div>
+        <div class="back-to-home">
+            <a href="index.html">返回主页</a>
         </div>
     </div>
     <div id="player">
@@ -132,48 +119,31 @@ function generateIndexPage(categories) {
     <style>
         body {
             display: flex;
-            flex-direction: column;
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
         }
         #directory {
-            width: 100%;
-            max-width: 250px;
+            width: 250px;
             border-right: 1px solid #ccc;
             padding: 10px;
             overflow-y: auto;
-            box-sizing: border-box;
         }
         #player {
             flex-grow: 1;
             padding: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
         #directory ul {
-            list-style-type: none;
+            list-style-type: none; /* 去掉列表的默认样式 */
             padding: 0;
-            margin: 0;
         }
         #directory li {
-            margin-bottom: 10px;
+            margin-bottom: 10px; /* 每个分类项之间的间隔 */
         }
         #directory a {
-            text-decoration: none;
-            color: #007bff;
+            text-decoration: none; /* 去掉链接的下划线 */
+            color: #007bff; /* 设置链接颜色 */
         }
         #directory a:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 768px) {
-            #directory {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid #ccc;
-                padding: 10px 0;
-            }
+            text-decoration: underline; /* 鼠标悬停时下划线 */
         }
     </style>
 </head>
