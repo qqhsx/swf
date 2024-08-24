@@ -8,48 +8,31 @@
     <style>
         body {
             display: flex;
-            flex-direction: column;
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
         }
         #directory {
-            width: 100%;
-            max-width: 250px;
+            width: 250px;
             border-right: 1px solid #ccc;
             padding: 10px;
             overflow-y: auto;
-            box-sizing: border-box;
         }
         #player {
             flex-grow: 1;
             padding: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
         #directory ul {
-            list-style-type: none;
+            list-style-type: none; /* 去掉列表的默认样式 */
             padding: 0;
-            margin: 0;
         }
         #directory li {
-            margin-bottom: 10px;
+            margin-bottom: 10px; /* 每个分类项之间的间隔 */
         }
         #directory a {
-            text-decoration: none;
-            color: #007bff;
+            text-decoration: none; /* 去掉链接的下划线 */
+            color: #007bff; /* 设置链接颜色 */
         }
         #directory a:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 768px) {
-            #directory {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid #ccc;
-                padding: 10px 0;
-            }
+            text-decoration: underline; /* 鼠标悬停时下划线 */
         }
     </style>
 </head>
