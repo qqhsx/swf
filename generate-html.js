@@ -109,7 +109,7 @@ function generatePage(page, category, files, totalPages) {
 
     // 生成文件列表
     files.forEach(file => {
-        const filePath = `swf/${category}/${file}`;
+        const filePath = 'swf/' + category + '/' + file;
         htmlContent += `<li><a href="#" data-src="${filePath}" onclick="loadSWF('${filePath}'); return false;">${file}</a></li>`;
     });
 
@@ -173,7 +173,7 @@ function generatePage(page, category, files, totalPages) {
             for (const category in filesData) {
                 filesData[category].forEach(file => {
                     if (file.toLowerCase().includes(filter)) {
-                        const filePath = `swf/${category}/${file}`;
+                        const filePath = 'swf/' + category + '/' + file;
                         fileList.innerHTML += `<li><a href="#" data-src="${filePath}" onclick="loadSWF('${filePath}'); return false;">${category} / ${file}</a></li>`;
                     }
                 });
