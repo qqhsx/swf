@@ -63,24 +63,13 @@
             text-decoration: none;
             color: #007bff;
         }
-        .search-bar {
-            margin-bottom: 10px;
-        }
-        .search-bar input {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
     </style>
 </head>
 <body>
     <div id="container">
         <div id="directory">
             <h2>模具结构原理动画精解100多个</h2>
-            <div class="search-bar">
-                <input type="text" id="search-input" placeholder="搜索文件..." onkeyup="filterFiles()">
-            </div>
-            <ul id="file-list">
+            <ul>
 <li><a href="#" data-src="swf/模具结构原理动画精解100多个/侧向分型与抽芯 1.swf" onclick="loadSWF('swf/模具结构原理动画精解100多个/侧向分型与抽芯 1.swf'); return false;">侧向分型与抽芯 1.swf</a></li><li><a href="#" data-src="swf/模具结构原理动画精解100多个/侧抽芯.swf" onclick="loadSWF('swf/模具结构原理动画精解100多个/侧抽芯.swf'); return false;">侧抽芯.swf</a></li><li><a href="#" data-src="swf/模具结构原理动画精解100多个/带横向抽芯的分型模具模拟动画.swf" onclick="loadSWF('swf/模具结构原理动画精解100多个/带横向抽芯的分型模具模拟动画.swf'); return false;">带横向抽芯的分型模具模拟动画.swf</a></li>
             </ul>
             <div class="pagination">
@@ -123,23 +112,6 @@
             // 页面加载时初次调整播放器大小
             resizePlayer();
         });
-
-        function filterFiles() {
-            const input = document.getElementById("search-input");
-            const filter = input.value.toLowerCase();
-            const ul = document.getElementById("file-list");
-            const li = ul.getElementsByTagName("li");
-
-            for (let i = 0; i < li.length; i++) {
-                const a = li[i].getElementsByTagName("a")[0];
-                const txtValue = a.textContent || a.innerText;
-                if (txtValue.toLowerCase().indexOf(filter) > -1) {
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
-                }
-            }
-        }
     </script>
 </body>
 </html>
