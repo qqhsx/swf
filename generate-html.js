@@ -18,17 +18,24 @@ function generatePage(page, category, files, totalPages) {
     <style>
         body {
             display: flex;
+            flex-direction: column;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
         #directory {
-            width: 250px;
+            width: 100%;
+            max-width: 300px;
             border-right: 1px solid #ccc;
             padding: 10px;
+            box-sizing: border-box;
             overflow-y: auto;
+            background-color: #f9f9f9;
         }
         #player {
             flex-grow: 1;
             padding: 10px;
+            box-sizing: border-box;
         }
         .ruffle-player {
             width: 100%;
@@ -40,7 +47,9 @@ function generatePage(page, category, files, totalPages) {
             margin-top: 10px;
         }
         .pagination button {
-            margin-right: 5px;
+            margin: 2px;
+            padding: 5px 10px;
+            font-size: 14px;
         }
         .back-to-home {
             margin-top: 10px;
@@ -51,6 +60,27 @@ function generatePage(page, category, files, totalPages) {
         }
         .back-to-home a:hover {
             text-decoration: underline;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            #directory {
+                border-right: none;
+                border-bottom: 1px solid #ccc;
+                max-width: 100%;
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
+            #player {
+                padding: 5px;
+            }
+            .pagination button {
+                padding: 3px 6px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -106,6 +136,7 @@ function generatePage(page, category, files, totalPages) {
 
     return htmlContent;
 }
+
 
 // 生成主页面 HTML 内容
 function generateIndexPage(categories) {
