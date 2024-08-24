@@ -32,6 +32,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add *.html
-          git add public/
           git commit -m "Auto-generate HTML files"
           git push
