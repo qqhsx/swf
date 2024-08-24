@@ -4,6 +4,12 @@ const path = require('path');
 // 目录路径
 const swfDir = path.join(__dirname, 'swf');
 const filesPerPage = 10; // 每页显示的文件数量
+const publicDir = path.join(__dirname, 'public'); // public 目录路径
+
+// 确保 public 目录存在
+if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir);
+}
 
 // 生成 files.js 文件，包含所有文件信息
 function generateFilesJS() {
@@ -17,7 +23,7 @@ function generateFilesJS() {
     });
 
     const data = 'const filesData = ' + JSON.stringify(filesByCategory, null, 4) + ';';
-    fs.writeFileSync(path.join(__dirname, 'public', 'files.js'), data);
+    fs.writeFileSync(path.join(publicDir, 'files.js'), data); // 写入到 public 目录
 }
 
 // 生成单个页面 HTML 内容
@@ -189,7 +195,7 @@ function generatePage(page, category, files, totalPages) {
 `;
 
     // 保存页面内容到文件
-    const outputPath = path.join(__dirname, 'public', 'index-page-' + category + '-' + page + '.html');
+    const outputPath = path.join(publicDir, 'index-page-' + category + '-' + page + '.html');
     fs.writeFileSync(outputPath, htmlContent);
 }
 
