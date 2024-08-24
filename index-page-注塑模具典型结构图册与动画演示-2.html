@@ -25,11 +25,9 @@
     </style>
 </head>
 <body>
-    <h1>SWF Viewer</h1> <!-- 添加测试内容 -->
     <div id="player">
         <div class="ruffle-player" id="container"></div>
     </div>
-    <p>如果你看到这行文字，页面是正常的。</p> <!-- 添加测试内容 -->
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     <script>
         window.RufflePlayer = window.RufflePlayer || {};
@@ -45,7 +43,7 @@
             player.style.maxWidth = "100vw";  
             player.style.maxHeight = "100vh";
 
-            player.load("swf/注塑模具典型结构图册与动画演示/弯销抽芯机构五.swf"); // 替换为实际的 SWF 文件路径
+            player.load("path/to/your/movie.swf"); // 替换为实际的 SWF 文件路径
         });
 
         window.addEventListener("resize", () => {
