@@ -10,18 +10,23 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden; /* 禁止水平和垂直滚动 */
+            overflow: hidden; /* 禁止滚动 */
+            box-sizing: border-box;
         }
         #player {
-            width: 100vw; /* 使用视口宽度确保播放器全屏 */
-            height: auto;
-            max-width: 100vw; /* 最大宽度为视口宽度 */
+            display: flex;
+            justify-content: center; /* 居中显示 */
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden; /* 确保不会有内容超出容器 */
             box-sizing: border-box;
         }
         .ruffle-player {
             width: 100%; 
-            height: auto;
-            max-width: 100%; /* 确保播放器不会超过屏幕宽度 */
+            height: 100%; 
+            max-width: 100vw; /* 限制播放器最大宽度 */
+            max-height: 100vh; /* 限制播放器最大高度 */
         }
     </style>
 </head>
