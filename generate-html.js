@@ -39,13 +39,13 @@ function generatePage(page, category, files, totalPages) {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: calc(100% - 20px); /* 适应 padding */
+            overflow: hidden; /* 防止内容溢出 */
         }
         .ruffle-player {
             width: 100%;
-            max-width: 800px;
+            max-width: 100%;
             height: auto;
-            max-height: 600px;
+            max-height: 80vh; /* 高度自适应视口高度 */
         }
         .pagination {
             margin-top: 10px;
@@ -79,7 +79,7 @@ function generatePage(page, category, files, totalPages) {
                 overflow-x: auto;
             }
             #player {
-                width: 100%; /* 适应手机屏幕宽度 */
+                width: 100%; /* 确保播放器宽度适应屏幕 */
                 padding: 5px;
                 display: flex;
                 justify-content: center;
@@ -144,6 +144,7 @@ function generatePage(page, category, files, totalPages) {
 
     return htmlContent;
 }
+
 
 
 
