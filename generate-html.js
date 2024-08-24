@@ -172,4 +172,75 @@ function generateIndexPage(categories) {
         }
         body {
             display: flex;
-            flex-direction: column; 
+            flex-direction: column; /* 垂直堆叠元素，适配移动设备 */
+            font-family: Arial, sans-serif;
+        }
+        #directory {
+            width: 100%; /* 使目录列表在移动设备上全宽 */
+            padding: 10px;
+            overflow-y: auto;
+            box-sizing: border-box; /* 确保padding和border不会影响宽度 */
+        }
+        #directory ul {
+            list-style-type: none; /* 去掉列表的默认样式 */
+            padding: 0;
+        }
+        #directory li {
+            margin-bottom: 10px; /* 每个分类项之间的间隔 */
+        }
+        #directory a {
+            text-decoration: none; /* 去掉链接的下划线 */
+            color: #007bff; /* 设置链接颜色 */
+        }
+        #directory a:hover {
+            text-decoration: underline; /* 鼠标悬停时下划线 */
+        }
+        .back-to-home a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div id="directory">
+        <h2>目录</h2>
+        <ul>
+`;
+
+    // 生成分类目录
+    categories.forEach(category => {
+        htmlContent += `<li><a href="index-page-${category}-1.html">${category}</a></li>`;
+    });
+
+    htmlContent += `
+        </ul>
+    </div>
+    <div class="back-to-home">
+        <a href="index.html">返回主页</a>
+    </div>
+</body>
+</html>
+`;
+
+    return htmlContent;
+}
+
+// 示例使用
+const categories = fs.readdirSync(swfDir).filter(file => fs.statSync(path.join(swfDir, file)).isDirectory());
+
+categories.forEach(category => {
+    const categoryPath = path.join(swfDir, category);
+    const files = fs.readdirSync(categoryPath).filter(file => file.endsWith('.swf'));
+    const totalPages = Math.ceil(files.length / filesPerPage);
+
+    for (let i = 1; i <= totalPages; i++) {
+        const pageFiles = files.slice((i - 1) * filesPerPage, i * filesPerPage);
+        const pageContent = generatePage(i, category, pageFiles, totalPages);
+        fs.writeFileSync(`index-page-${category}-${i}.html`, pageContent);
+    }
+});
+
+const indexContent = generateIndexPage(categories);
+fs.writeFileSync('index.html', indexContent);
