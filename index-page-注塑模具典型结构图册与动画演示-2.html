@@ -2,33 +2,124 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SWF Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SWF Viewer - 注塑模具典型结构图册与动画演示 - Page 1</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow-x: hidden; /* 禁止水平滚动 */
+            width: 100%;
+            max-width: 100%; /* 限制页面最大宽度 */
+        }
+        body {
+            display: flex;
+            flex-direction: column; /* 垂直堆叠元素，适配移动设备 */
+            font-family: Arial, sans-serif;
+        }
+        #directory {
+            width: 100%; /* 使目录列表在移动设备上全宽 */
+            padding: 10px;
+            overflow-y: auto;
+            box-sizing: border-box; /* 确保padding和border不会影响宽度 */
+        }
+        #player {
+            flex-grow: 1;
+            padding: 10px;
+            width: 100%; /* 确保播放器容器宽度不超过屏幕 */
+            box-sizing: border-box;
+            max-width: 100%; /* 强制限制播放器容器宽度 */
+        }
+        .ruffle-player {
+            width: 100%; /* 使播放器在移动设备上全宽 */
+            height: auto;
+            max-width: 100%; /* 强制限制播放器宽度 */
+            box-sizing: border-box; /* 确保padding和border不会影响宽度 */
+        }
+        /* 添加媒体查询以调整不同屏幕尺寸的布局 */
+        @media only screen and (max-width: 768px) {
+            #directory {
+                font-size: 14px;
+            }
+            #player {
+                padding: 5px;
+            }
+            .ruffle-player {
+                max-height: none; /* 移除高度限制 */
+            }
+        }
+        @media only screen and (max-width: 480px) {
+            #directory {
+                font-size: 12px;
+            }
+            #player {
+                padding: 2px;
+            }
+            .ruffle-player {
+                max-height: none; /* 移除高度限制 */
+            }
+        }
+        .pagination a {
+            margin: 0 5px;
+        }
+        .pagination button {
+            padding: 5px 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .back-to-home a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
 </head>
 <body>
-    <div id="player-container"></div>
-    
+    <div id="directory">
+        <h2>注塑模具典型结构图册与动画演示</h2>
+        <ul>
+            <!-- 列表项代码保持不变 -->
+        </ul>
+        <div class="pagination">
+            <!-- 分页代码保持不变 -->
+        </div>
+        <div class="back-to-home">
+            <a href="index.html">返回主页</a>
+        </div>
+    </div>
+    <div id="player">
+        <div id="swf-container">
+            <div class="ruffle-player" id="player-container"></div>
+        </div>
+    </div>
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     <script>
-        window.RufflePlayer = window.RufflePlayer || {};
-        window.addEventListener("load", () => {
+        document.addEventListener("DOMContentLoaded", () => {
             const ruffle = window.RufflePlayer.newest();
             const player = ruffle.createPlayer();
-            const container = document.getElementById("player-container");
-            container.appendChild(player);
-            const containerWidth = container.offsetWidth;
-            const playerHeight = (containerWidth / 4) * 3;
+            document.getElementById('player-container').appendChild(player);
 
-            player.style.width = "100%";
-            player.style.height = playerHeight + "px";  // 根据宽度动态计算高度
+            window.loadSWF = function(src) {
+                player.load(src).catch(error => {
+                    console.error('Error loading SWF:', error);
+                });
+            };
 
+            // 初始调整播放器大小
+            resizePlayer();
 
-            // 设置播放器的宽度和高度
-           // player.style.width = "100%";
-           // player.style.height = "auto";
+            window.addEventListener("resize", resizePlayer);
+            window.addEventListener("orientationchange", resizePlayer);
 
-            // Load your SWF file here
-            player.load("path/to/your/movie.swf");  // 替换为你的SWF文件路径
+            function resizePlayer() {
+                const container = document.getElementById("player-container");
+                const containerWidth = container.offsetWidth;
+                const playerHeight = (containerWidth / 4) * 3; // 按4:3比例计算高度
+                player.style.width = "100%";
+                player.style.height = playerHeight + "px"; // 设置高度
+            }
         });
     </script>
 </body>
