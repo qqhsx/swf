@@ -5,6 +5,21 @@ const path = require('path');
 const swfDir = path.join(__dirname, 'swf');
 const filesPerPage = 10; // 每页显示的文件数量
 
+// 生成 files.js 文件，包含所有文件信息
+function generateFilesJS() {
+    const categories = fs.readdirSync(swfDir).filter(file => fs.statSync(path.join(swfDir, file)).isDirectory());
+    const filesByCategory = {};
+
+    categories.forEach(category => {
+        const categoryPath = path.join(swfDir, category);
+        const files = fs.readdirSync(categoryPath).filter(file => file.endsWith('.swf'));
+        filesByCategory[category] = files;
+    });
+
+    const data = `const filesData = ${JSON.stringify(filesByCategory, null, 4)};`;
+    fs.writeFileSync(path.join(__dirname, 'public', 'files.js'), data);
+}
+
 // 生成单个页面 HTML 内容
 function generatePage(page, category, files, totalPages) {
     let htmlContent = `
@@ -87,7 +102,7 @@ function generatePage(page, category, files, totalPages) {
         <div id="directory">
             <h2>${category}</h2>
             <div class="search-bar">
-                <input type="text" id="search-input" placeholder="搜索文件..." onkeyup="filterFiles()">
+                <input type="text" id="search-input" placeholder="搜索文件..." onkeyup="searchFiles()">
             </div>
             <ul id="file-list">
 `;
@@ -121,6 +136,7 @@ function generatePage(page, category, files, totalPages) {
         </div>
     </div>
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+    <script src="files.js"></script> <!-- 引入文件数据 -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const ruffle = window.RufflePlayer.newest();
@@ -148,105 +164,50 @@ function generatePage(page, category, files, totalPages) {
             resizePlayer();
         });
 
-        function filterFiles() {
+        function searchFiles() {
             const input = document.getElementById("search-input");
             const filter = input.value.toLowerCase();
-            const ul = document.getElementById("file-list");
-            const li = ul.getElementsByTagName("li");
+            const fileList = document.getElementById("file-list");
+            fileList.innerHTML = "";
 
-            for (let i = 0; i < li.length; i++) {
-                const a = li[i].getElementsByTagName("a")[0];
-                const txtValue = a.textContent || a.innerText;
-                if (txtValue.toLowerCase().indexOf(filter) > -1) {
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
-                }
+            for (const category in filesData) {
+                filesData[category].forEach(file => {
+                    if (file.toLowerCase().includes(filter)) {
+                        const filePath = `swf/${category}/${file}`;
+                        fileList.innerHTML += `<li><a href="#" data-src="${filePath}" onclick="loadSWF('${filePath}'); return false;">${category} / ${file}</a></li>`;
+                    }
+                });
+            }
+
+            if (fileList.innerHTML === "") {
+                fileList.innerHTML = "<li>未找到匹配的文件</li>";
             }
         }
     </script>
 </body>
 </html>
 `;
-
-    return htmlContent;
+    // 保存页面内容到文件
+    const outputPath = path.join(__dirname, 'public', `index-page-${category}-${page}.html`);
+    fs.writeFileSync(outputPath, htmlContent);
 }
 
-// 生成主页面 HTML 内容
-function generateIndexPage(categories) {
-    let htmlContent = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SWF Viewer</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column; /* 垂直堆叠元素，适配移动设备 */
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden; /* 禁用水平滚动 */
-        }
-        #directory {
-            width: 100%; /* 使目录列表在移动设备上全宽 */
-            padding: 10px;
-            overflow-y: auto;
-            box-sizing: border-box; /* 确保padding和border不会影响宽度 */
-        }
-        #directory ul {
-            list-style-type: none; /* 去掉列表的默认样式 */
-            padding: 0;
-        }
-        #directory li {
-            margin-bottom: 10px; /* 每个分类项之间的间隔 */
-        }
-        #directory a {
-            text-decoration: none; /* 去掉链接的下划线 */
-            color: #007bff; /* 设置链接颜色 */
-        }
-        #directory a:hover {
-            text-decoration: underline; /* 鼠标悬停时下划线 */
-        }
-    </style>
-</head>
-<body>
-    <div id="directory">
-        <h2>目录</h2>
-        <ul>
-`;
+// 生成所有页面
+function generateAllPages() {
+    const categories = fs.readdirSync(swfDir).filter(file => fs.statSync(path.join(swfDir, file)).isDirectory());
 
-    // 生成分类目录
     categories.forEach(category => {
-        htmlContent += `<li><a href="index-page-${category}-1.html">${category}</a></li>`;
+        const categoryPath = path.join(swfDir, category);
+        const files = fs.readdirSync(categoryPath).filter(file => file.endsWith('.swf'));
+        const totalPages = Math.ceil(files.length / filesPerPage);
+
+        for (let i = 0; i < totalPages; i++) {
+            const pageFiles = files.slice(i * filesPerPage, (i + 1) * filesPerPage);
+            generatePage(i + 1, category, pageFiles, totalPages);
+        }
     });
-
-    htmlContent += `
-        </ul>
-    </div>
-</body>
-</html>
-`;
-
-    return htmlContent;
 }
 
-// 示例使用
-const categories = fs.readdirSync(swfDir).filter(file => fs.statSync(path.join(swfDir, file)).isDirectory());
-
-categories.forEach(category => {
-    const categoryPath = path.join(swfDir, category);
-    const files = fs.readdirSync(categoryPath).filter(file => file.endsWith('.swf'));
-    const totalPages = Math.ceil(files.length / filesPerPage);
-
-    for (let i = 1; i <= totalPages; i++) {
-        const pageFiles = files.slice((i - 1) * filesPerPage, i * filesPerPage);
-        const pageContent = generatePage(i, category, pageFiles, totalPages);
-        fs.writeFileSync(`index-page-${category}-${i}.html`, pageContent);
-    }
-});
-
-const indexContent = generateIndexPage(categories);
-fs.writeFileSync('index.html', indexContent);
+// 生成文件数据和页面
+generateFilesJS();
+generateAllPages();
