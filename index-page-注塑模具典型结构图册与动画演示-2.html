@@ -15,14 +15,15 @@
         #player {
             width: 100%;
             height: auto;
-            max-width: 100%; /* 确保播放器不会超过屏幕宽度 */
             box-sizing: border-box;
-            overflow: hidden; /* 防止超出边界 */
+            display: flex;
+            justify-content: center; /* 居中播放器 */
         }
         .ruffle-player {
             width: 100%;
+            max-width: 100%;
             height: auto;
-            max-width: 100%; /* 确保播放器不会超过屏幕宽度 */
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -37,11 +38,10 @@
             const player = ruffle.createPlayer();
             document.getElementById('player-container').appendChild(player);
 
-            window.loadSWF = function(src) {
-                player.load(src).catch(error => {
-                    console.error('Error loading SWF:', error);
-                });
-            };
+            // 自动加载一个 SWF 文件用于测试
+            player.load("swf/yourfile.swf").catch(error => {
+                console.error('Error loading SWF:', error);
+            });
         });
 
         window.addEventListener("resize", () => {
