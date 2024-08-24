@@ -62,7 +62,7 @@ function generatePage(page, files, totalPages) {
 
     // 生成分页按钮
     for (let i = 1; i <= totalPages; i++) {
-        htmlContent += `<button onclick="changePage(${i})"${i === page ? ' disabled' : ''}>${i}</button>`;
+        htmlContent += `<a href="index-page-${i}.html"><button${i === page ? ' disabled' : ''}>${i}</button></a>`;
     }
 
     htmlContent += `
@@ -74,8 +74,6 @@ function generatePage(page, files, totalPages) {
         </div>
     </div>
     <script>
-        let currentPage = ${page};
-
         document.addEventListener("DOMContentLoaded", () => {
             const ruffle = window.RufflePlayer.newest();
             const player = ruffle.createPlayer();
@@ -86,10 +84,6 @@ function generatePage(page, files, totalPages) {
                     console.error('Error loading SWF:', error);
                 });
             };
-
-            window.changePage = function(page) {
-                window.location.href = 'index-page-' + page + '.html';
-            };
         });
     </script>
 </body>
@@ -97,6 +91,95 @@ function generatePage(page, files, totalPages) {
 `;
 
     return htmlContent;
+}
+
+// 生成主页面 HTML 内容
+function generateIndexPage(pages) {
+    let htmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWF Viewer</title>
+    <style>
+        body {
+            display: flex;
+        }
+        #directory {
+            width: 250px;
+            border-right: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        #player {
+            flex-grow: 1;
+            padding: 10px;
+        }
+        .pagination {
+            margin-top: 10px;
+        }
+        .pagination a {
+            margin-right: 5px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="directory">
+        <h2>目录</h2>
+        <ul>
+`;
+
+    // 读取目录和文件
+    const categories = fs.readdirSync(swfDir).filter(file => fs.statSync(path.join(swfDir, file)).isDirectory());
+    categories.forEach(category => {
+        htmlContent += `<li><strong>${category}</strong><ul>`;
+        const files = fs.readdirSync(path.join(swfDir, category)).filter(file => file.endsWith('.swf'));
+        files.forEach(file => {
+            htmlContent += `<li><a href="#" data-src="swf/${category}/${file}" onclick="loadSWF('swf/${category}/${file}'); return false;">${file}</a></li>`;
+        });
+        htmlContent += `</ul></li>`;
+    });
+
+    htmlContent += `
+        </ul>
+        <div class="pagination">
+`;
+
+    // 生成分页按钮
+    for (let i = 1; i <= pages; i++) {
+        htmlContent += `<a href="index-page-${i}.html"><button${i === 1 ? ' disabled' : ''}>${i}</button></a>`;
+    }
+
+    htmlContent += `
+        </div>
+    </div>
+    <div id="player">
+        <div id="swf-container">
+            <div class="ruffle-player" id="player-container"></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const ruffle = window.RufflePlayer.newest();
+            const player = ruffle.createPlayer();
+            document.getElementById('player-container').appendChild(player);
+
+            window.loadSWF = function(src) {
+                player.load(src).catch(error => {
+                    console.error('Error loading SWF:', error);
+                });
+            };
+        });
+    </script>
+</body>
+</html>
+`;
+    
+    const outputFilePath = path.join(__dirname, 'index.html');
+    fs.writeFileSync(outputFilePath, htmlContent, 'utf8');
+    console.log('index.html has been generated!');
 }
 
 // 生成所有页面
@@ -127,6 +210,9 @@ function generateAllPages() {
         fs.writeFileSync(outputFilePath, pageContent, 'utf8');
         console.log(`index-page-${page}.html has been generated!`);
     }
+
+    // 生成主页面
+    generateIndexPage(totalPages);
 }
 
 generateAllPages();
