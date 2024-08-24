@@ -5,53 +5,6 @@ const path = require('path');
 const swfDir = path.join(__dirname, 'swf');
 const filesPerPage = 10; // 每页显示的文件数量
 
-// 生成主页 HTML 内容
-function generateHomePage(categories) {
-    let htmlContent = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SWF Viewer - Home</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .category-list {
-            list-style: none;
-            padding: 0;
-        }
-        .category-list li {
-            margin: 10px 0;
-        }
-        .category-list a {
-            text-decoration: none;
-            color: #007bff;
-        }
-    </style>
-</head>
-<body>
-    <h1>SWF Viewer - Home</h1>
-    <ul class="category-list">
-`;
-
-    // 生成分类链接
-    categories.forEach(category => {
-        htmlContent += `<li><a href="index-${category}.html">${category}</a></li>`;
-    });
-
-    htmlContent += `
-    </ul>
-</body>
-</html>
-    `;
-
-    fs.writeFileSync(path.join(__dirname, 'public', 'index.html'), htmlContent);
-}
-
 // 生成单个页面 HTML 内容
 function generatePage(page, category, files, totalPages) {
     let htmlContent = `
@@ -207,37 +160,4 @@ function generatePage(page, category, files, totalPages) {
                 if (txtValue.toLowerCase().indexOf(filter) > -1) {
                     li[i].style.display = "";
                 } else {
-                    li[i].style.display = "none";
-                }
-            }
-        }
-    </script>
-</body>
-</html>
-    `;
-
-    fs.writeFileSync(path.join(__dirname, 'public', `index-page-${category}-${page}.html`), htmlContent);
-}
-
-// 读取目录中的文件
-function generateHTML() {
-    const categories = fs.readdirSync(swfDir).filter(file => fs.statSync(path.join(swfDir, file)).isDirectory());
-
-    // 生成主页
-    generateHomePage(categories);
-
-    categories.forEach(category => {
-        const categoryDir = path.join(swfDir, category);
-        const files = fs.readdirSync(categoryDir).filter(file => path.extname(file) === '.swf');
-        const totalPages = Math.ceil(files.length / filesPerPage);
-
-        for (let page = 1; page <= totalPages; page++) {
-            const start = (page - 1) * filesPerPage;
-            const end = Math.min(start + filesPerPage, files.length);
-            generatePage(page, category, files.slice(start, end), totalPages);
-        }
-    });
-}
-
-// 执行生成
-generateHTML();
+        
