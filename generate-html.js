@@ -18,6 +18,7 @@ function generatePage(page, category, files, totalPages) {
     <style>
         body {
             display: flex;
+            font-family: Arial, sans-serif;
         }
         #directory {
             width: 250px;
@@ -45,7 +46,7 @@ function generatePage(page, category, files, totalPages) {
 </head>
 <body>
     <div id="directory">
-        <h2>目录 - ${category}</h2>
+        <h2>${category}</h2>
         <ul>
 `;
 
@@ -104,36 +105,37 @@ function generateIndexPage(categories) {
     <title>SWF Viewer</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            font-family: Arial, sans-serif;
         }
         #directory {
-            width: 300px;
-            margin: 20px;
+            width: 250px;
+            border-right: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        #player {
+            flex-grow: 1;
+            padding: 10px;
         }
         #directory ul {
-            list-style: none;
+            list-style-type: none; /* 去掉列表的默认样式 */
             padding: 0;
         }
         #directory li {
-            margin-bottom: 10px;
+            margin-bottom: 10px; /* 每个分类项之间的间隔 */
         }
         #directory a {
-            text-decoration: none;
-            color: #007bff;
+            text-decoration: none; /* 去掉链接的下划线 */
+            color: #007bff; /* 设置链接颜色 */
         }
         #directory a:hover {
-            text-decoration: underline;
+            text-decoration: underline; /* 鼠标悬停时下划线 */
         }
     </style>
 </head>
 <body>
     <div id="directory">
-        <h1>SWF Viewer</h1>
         <h2>目录</h2>
         <ul>
 `;
@@ -146,6 +148,24 @@ function generateIndexPage(categories) {
     htmlContent += `
         </ul>
     </div>
+    <div id="player">
+        <div id="swf-container">
+            <div class="ruffle-player" id="player-container"></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const ruffle = window.RufflePlayer.newest();
+            const player = ruffle.createPlayer();
+            document.getElementById('player-container').appendChild(player);
+
+            window.loadSWF = function(src) {
+                player.load(src).catch(error => {
+                    console.error('Error loading SWF:', error);
+                });
+            };
+        });
+    </script>
 </body>
 </html>
 `;
@@ -155,6 +175,30 @@ function generateIndexPage(categories) {
     console.log('index.html has been generated!');
 }
 
+// 生成所有页面
+function generateAllPages() {
+    // 读取目录和文件
+    const categories = fs.readdirSync(swfDir).filter(file => fs.statSync(path.join(swfDir, file)).isDirectory());
+
+    categories.forEach(category => {
+        const files = fs.readdirSync(path.join(swfDir, category)).filter(file => file.endsWith('.swf'));
+
+        // 计算总页数
+        const totalFiles = files.length;
+        const totalPages = Math.ceil(totalFiles / filesPerPage);
+
+        // 生成每一页
+        for (let page = 1; page <= totalPages; page++) {
+            const startIndex = (page - 1) * filesPerPage;
+            const endIndex = startIndex + filesPerPage;
+            const filesForPage = files.slice(startIndex, endIndex);
+            const pageContent = generatePage(page, category, filesForPage, totalPages);
+
+            const outputFilePath = path.join(__dirname, `index-page-${category}-${page}.html`);
+            fs.writeFileSync(outputFilePath, pageContent, 'utf8');
+            console.log(`index-page-${category}-${page}.html has been generated!`);
+        }
+    });
 
     // 生成主页面
     generateIndexPage(categories);
