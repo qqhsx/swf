@@ -14,47 +14,43 @@
         }
         #player {
             width: 100%;
+            height: auto;
             max-width: 100%; /* 确保播放器不会超过屏幕宽度 */
-            overflow: hidden; /* 防止播放器溢出容器 */
-            display: flex;
-            justify-content: center; /* 使播放器在容器内居中 */
             box-sizing: border-box;
+            overflow: hidden; /* 防止超出边界 */
         }
         .ruffle-player {
             width: 100%;
             height: auto;
-            max-width: 100%; /* 强制最大宽度为100% */
-            object-fit: contain; /* 让播放器适应其容器 */
+            max-width: 100%; /* 确保播放器不会超过屏幕宽度 */
         }
     </style>
 </head>
 <body>
     <div id="player">
-        <div class="ruffle-player" id="player-container"></div>
+        <div class="ruffle-player" id="container"></div>
     </div>
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+        window.RufflePlayer = window.RufflePlayer || {};
+        window.addEventListener("load", (event) => {
             const ruffle = window.RufflePlayer.newest();
             const player = ruffle.createPlayer();
-            document.getElementById('player-container').appendChild(player);
-
-            // 自动加载一个 SWF 文件用于测试
-            player.load("swf/yourfile.swf").catch(error => {
-                console.error('Error loading SWF:', error);
-            });
+            const container = document.getElementById("container");
+            container.appendChild(player);
+            player.load("movie.swf"); // 替换为实际的 SWF 文件路径
         });
 
         window.addEventListener("resize", () => {
-            const playerContainer = document.getElementById("player-container");
-            playerContainer.style.width = "100%";
-            playerContainer.style.height = "auto";
+            const player = document.getElementById("container");
+            player.style.width = "100%";
+            player.style.height = "auto";
         });
 
         window.addEventListener("orientationchange", () => {
-            const playerContainer = document.getElementById("player-container");
-            playerContainer.style.width = "100%";
-            playerContainer.style.height = "auto";
+            const player = document.getElementById("container");
+            player.style.width = "100%";
+            player.style.height = "auto";
         });
     </script>
 </body>
