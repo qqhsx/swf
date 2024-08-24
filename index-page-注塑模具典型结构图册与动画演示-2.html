@@ -16,7 +16,7 @@
             box-sizing: border-box;
         }
         #directory {
-            width: 300px; /* 适合桌面显示 */
+            width: 300px; /* 固定宽度适合桌面 */
             border-right: 1px solid #ccc;
             padding: 10px;
             box-sizing: border-box;
@@ -30,13 +30,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* 防止内容溢出 */
+            overflow: hidden; /* 避免播放器溢出 */
         }
         .ruffle-player {
             width: 100%;
             max-width: 100%;
             height: auto;
-            max-height: 80vh; /* 高度自适应视口高度 */
+            max-height: 80vh; /* 高度适应视口 */
         }
         .pagination {
             margin-top: 10px;
@@ -66,11 +66,11 @@
                 width: 100%;
                 border-right: none;
                 border-bottom: 1px solid #ccc;
-                overflow-y: hidden;
-                overflow-x: auto;
+                overflow-y: auto;
+                overflow-x: hidden;
             }
             #player {
-                width: 100%; /* 确保播放器宽度适应屏幕 */
+                width: 100%;
                 padding: 5px;
                 display: flex;
                 justify-content: center;
@@ -87,7 +87,7 @@
     <div id="directory">
         <h2>注塑模具典型结构图册与动画演示</h2>
         <ul>
-<li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜槽侧向分型抽芯机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜槽侧向分型抽芯机构.swf'); return false;">斜槽侧向分型抽芯机构.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销侧向分型抽芯机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销侧向分型抽芯机构.swf'); return false;">斜销侧向分型抽芯机构.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销在动模、滑块在定模的机构之二.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销在动模、滑块在定模的机构之二.swf'); return false;">斜销在动模、滑块在定模的机构之二.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销抽芯机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销抽芯机构.swf'); return false;">斜销抽芯机构.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构三.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构三.swf'); return false;">斜销的侧向抽芯机构三.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构四.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构四.swf'); return false;">斜销的侧向抽芯机构四.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销的内侧向抽芯机构一.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销的内侧向抽芯机构一.swf'); return false;">斜销的内侧向抽芯机构一.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销（斜导柱）分型原理.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销（斜导柱）分型原理.swf'); return false;">斜销（斜导柱）分型原理.swf</a></li>
+<li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/手工齿轮齿条侧向抽芯机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/手工齿轮齿条侧向抽芯机构.swf'); return false;">手工齿轮齿条侧向抽芯机构.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜槽侧向分型抽芯机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜槽侧向分型抽芯机构.swf'); return false;">斜槽侧向分型抽芯机构.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销侧向分型抽芯机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销侧向分型抽芯机构.swf'); return false;">斜销侧向分型抽芯机构.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销在动模、滑块在定模的机构之二.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销在动模、滑块在定模的机构之二.swf'); return false;">斜销在动模、滑块在定模的机构之二.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销抽芯机构.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销抽芯机构.swf'); return false;">斜销抽芯机构.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构三.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构三.swf'); return false;">斜销的侧向抽芯机构三.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构四.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销的侧向抽芯机构四.swf'); return false;">斜销的侧向抽芯机构四.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销的内侧向抽芯机构一.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销的内侧向抽芯机构一.swf'); return false;">斜销的内侧向抽芯机构一.swf</a></li><li><a href="#" data-src="swf/注塑模具典型结构图册与动画演示/斜销（斜导柱）分型原理.swf" onclick="loadSWF('swf/注塑模具典型结构图册与动画演示/斜销（斜导柱）分型原理.swf'); return false;">斜销（斜导柱）分型原理.swf</a></li>
         </ul>
         <div class="pagination">
 <a href="index-page-注塑模具典型结构图册与动画演示-1.html"><button>1</button></a><a href="index-page-注塑模具典型结构图册与动画演示-2.html"><button disabled>2</button></a>
