@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWF Viewer - 模具结构原理动画精解100多个 - Page 1</title>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+    <style>
+        body {
+            display: flex;
+        }
+        #directory {
+            width: 250px;
+            border-right: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        #player {
+            flex-grow: 1;
+            padding: 10px;
+        }
+        .ruffle-player {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            max-height: 600px;
+        }
+        .pagination {
+            margin-top: 10px;
+        }
+        .pagination button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="directory">
+        <h2>目录 - 模具结构原理动画精解100多个</h2>
+        <ul>
+<li><a href="#" data-src="swf/模具结构原理动画精解100多个/yali.swf" onclick="loadSWF('swf/模具结构原理动画精解100多个/yali.swf'); return false;">yali.swf</a></li><li><a href="#" data-src="swf/模具结构原理动画精解100多个/侧向分型与抽芯 1.swf" onclick="loadSWF('swf/模具结构原理动画精解100多个/侧向分型与抽芯 1.swf'); return false;">侧向分型与抽芯 1.swf</a></li><li><a href="#" data-src="swf/模具结构原理动画精解100多个/侧抽芯.swf" onclick="loadSWF('swf/模具结构原理动画精解100多个/侧抽芯.swf'); return false;">侧抽芯.swf</a></li><li><a href="#" data-src="swf/模具结构原理动画精解100多个/带横向抽芯的分型模具模拟动画.swf" onclick="loadSWF('swf/模具结构原理动画精解100多个/带横向抽芯的分型模具模拟动画.swf'); return false;">带横向抽芯的分型模具模拟动画.swf</a></li>
+        </ul>
+        <div class="pagination">
+<a href="index-page-模具结构原理动画精解100多个-1.html"><button disabled>1</button></a>
+        </div>
+    </div>
+    <div id="player">
+        <div id="swf-container">
+            <div class="ruffle-player" id="player-container"></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const ruffle = window.RufflePlayer.newest();
+            const player = ruffle.createPlayer();
+            document.getElementById('player-container').appendChild(player);
+
+            window.loadSWF = function(src) {
+                player.load(src).catch(error => {
+                    console.error('Error loading SWF:', error);
+                });
+            };
+        });
+    </script>
+</body>
+</html>
