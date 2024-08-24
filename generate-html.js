@@ -18,19 +18,19 @@ function generatePage(page, category, files, totalPages) {
     <style>
         body {
             display: flex;
-            flex-direction: column;
-            font-family: Arial, sans-serif;
+            flex-direction: row;
             margin: 0;
-            padding: 0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
         #directory {
-            width: 100%;
-            max-width: 300px;
+            width: 300px;
             border-right: 1px solid #ccc;
             padding: 10px;
             box-sizing: border-box;
-            overflow-y: auto;
             background-color: #f9f9f9;
+            overflow-y: auto;
         }
         #player {
             flex-grow: 1;
@@ -68,11 +68,11 @@ function generatePage(page, category, files, totalPages) {
                 flex-direction: column;
             }
             #directory {
+                width: 100%;
                 border-right: none;
                 border-bottom: 1px solid #ccc;
-                max-width: 100%;
-                overflow-x: auto;
                 overflow-y: hidden;
+                overflow-x: auto;
             }
             #player {
                 padding: 5px;
@@ -136,6 +136,7 @@ function generatePage(page, category, files, totalPages) {
 
     return htmlContent;
 }
+
 
 
 // 生成主页面 HTML 内容
