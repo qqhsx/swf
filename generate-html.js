@@ -36,6 +36,9 @@ function generatePage(page, category, files, totalPages) {
             flex-grow: 1;
             padding: 10px;
             box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .ruffle-player {
             width: 100%;
@@ -76,6 +79,9 @@ function generatePage(page, category, files, totalPages) {
             }
             #player {
                 padding: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
             .pagination button {
                 padding: 3px 6px;
@@ -136,6 +142,7 @@ function generatePage(page, category, files, totalPages) {
 
     return htmlContent;
 }
+
 
 
 
