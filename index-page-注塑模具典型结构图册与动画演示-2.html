@@ -13,20 +13,18 @@
             overflow-x: hidden; /* 禁止水平滚动 */
         }
         #player {
-            display: flex;
-            justify-content: center; /* 居中播放器 */
-            align-items: center; /* 垂直居中 */
             width: 100%;
             max-width: 100%; /* 确保播放器不会超过屏幕宽度 */
             overflow: hidden; /* 防止播放器溢出容器 */
+            display: flex;
+            justify-content: center; /* 使播放器在容器内居中 */
             box-sizing: border-box;
         }
         .ruffle-player {
             width: 100%;
-            max-width: 100%; /* 强制最大宽度为100% */
             height: auto;
+            max-width: 100%; /* 强制最大宽度为100% */
             object-fit: contain; /* 让播放器适应其容器 */
-            box-sizing: border-box;
         }
     </style>
 </head>
@@ -48,15 +46,15 @@
         });
 
         window.addEventListener("resize", () => {
-            const player = document.getElementById("player-container");
-            player.style.width = "100%";
-            player.style.height = "auto";
+            const playerContainer = document.getElementById("player-container");
+            playerContainer.style.width = "100%";
+            playerContainer.style.height = "auto";
         });
 
         window.addEventListener("orientationchange", () => {
-            const player = document.getElementById("player-container");
-            player.style.width = "100%";
-            player.style.height = "auto";
+            const playerContainer = document.getElementById("player-container");
+            playerContainer.style.width = "100%";
+            playerContainer.style.height = "auto";
         });
     </script>
 </body>
