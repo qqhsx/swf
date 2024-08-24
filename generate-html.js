@@ -94,6 +94,7 @@ function generatePage(page, category, files, totalPages) {
             <div class="ruffle-player" id="player-container"></div>
         </div>
     </div>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const ruffle = window.RufflePlayer.newest();
@@ -179,6 +180,7 @@ function generateIndexPage(categories) {
             <div class="ruffle-player" id="player-container"></div>
         </div>
     </div>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const ruffle = window.RufflePlayer.newest();
