@@ -29,7 +29,6 @@
             width: 100%; /* 使播放器在移动设备上全宽 */
             height: auto;
             max-width: 100%; /* 限制播放器宽度为屏幕宽度 */
-            max-height: 300px; /* 限制播放器高度为合理值 */
         }
         /* 添加媒体查询以调整不同屏幕尺寸的布局 */
         @media only screen and (max-width: 768px) {
@@ -100,18 +99,21 @@
                     console.error('Error loading SWF:', error);
                 });
             };
-        });
 
-        window.addEventListener("resize", () => {
-            const player = document.getElementById("player-container");
-            player.style.width = "100%";
-            player.style.height = "auto";
-        });
+            // 调整播放器大小
+            function resizePlayer() {
+                const container = document.getElementById("player-container");
+                const containerWidth = container.offsetWidth;
+                const playerHeight = (containerWidth / 4) * 3; // 按4:3比例计算高度
+                player.style.width = "100%";
+                player.style.height = playerHeight + "px";
+            }
 
-        window.addEventListener("orientationchange", () => {
-            const player = document.getElementById("player-container");
-            player.style.width = "100%";
-            player.style.height = "auto";
+            window.addEventListener("resize", resizePlayer);
+            window.addEventListener("orientationchange", resizePlayer);
+
+            // 页面加载时初次调整播放器大小
+            resizePlayer();
         });
     </script>
 </body>
