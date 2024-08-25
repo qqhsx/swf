@@ -205,7 +205,6 @@ function generateIndexPage(categories) {
     return htmlContent;
 }
 
-// 示例使用
 const categories = fs.readdirSync(swfDir).filter(file => fs.statSync(path.join(swfDir, file)).isDirectory());
 
 categories.forEach(category => {
